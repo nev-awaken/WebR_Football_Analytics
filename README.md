@@ -1,15 +1,14 @@
-## Web R & Express JS - Foot Ball Analytics Backend
+## Web R & Express JS - FootBall Analytics Backend
 
-Brings R's statistical capabilities into a Node/Express backend **without
-**installing R****.
+Brings R's statistical capabilities into a Node/Express backend **without installing R**
 
 R runs as WebAssembly via the **`webr`** package; everything
 arrives through **`npm install`**.
 
 ## Requirements
 
-**-** Node.js ≥ 18 (tested on 20.17.0)
-**-** Internet access on ******first run****** (R packages download once, then cache to **`r-library/`**)
+- Node.js ≥ 18 (tested on 20.17.0)
+- Internet access required on first run (R packages download once, then cache to `r-library/`)
 
 ### Install Node Packages
 
