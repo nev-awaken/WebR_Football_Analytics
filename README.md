@@ -34,6 +34,91 @@ packages (dplyr); later launches load them from disk, no network needed.
 - GET - /ping
 - etc
 
+
+  ---
+  POST /stats/summary
+
+  Returns summary statistics for a numeric array.
+
+```
+  curl -X POST http://localhost:3000/stats/summary \
+    -H "Content-Type: application/json" \
+    -d '{ "values": [10, 20, 30, 40, 50] }'
+```
+  ---
+  POST /stats/t-test
+
+  Runs a t-test between two numeric arrays. Returns a p-value.
+
+```
+  curl -X POST http://localhost:3000/stats/t-test \
+    -H "Content-Type: application/json" \
+    -d '{ "x": [10, 20, 30], "y": [15, 25, 35] }'
+
+  Returns: { "p_value": <number> }
+```
+
+  ---
+  POST /stats/pca
+
+  Runs Principal Component Analysis on a 2D data matrix.
+
+```
+  curl -X POST http://localhost:3000/stats/pca \
+    -H "Content-Type: application/json" \
+    -d '{ "data": [[1, 2], [3, 4], [5, 6]] }'
+```
+
+  ---
+  POST /stats/kmeans
+
+  Runs K-Means clustering on a 2D data matrix.
+
+```
+  curl -X POST http://localhost:3000/stats/kmeans \
+    -H "Content-Type: application/json" \
+    -d '{ "data": [[1, 2], [3, 4], [5, 6]], "k": 2 }'
+
+  Returns: { "clusters": [...] }
+```
+
+  ---
+  POST /stats/pca
+
+  Runs Principal Component Analysis on a 2D data matrix.
+
+```
+  curl -X POST http://localhost:3000/stats/pca \
+    -H "Content-Type: application/json" \
+    -d '{ "data": [[1, 2], [3, 4], [5, 6]] }'
+```
+
+  ---
+  POST /stats/kmeans
+
+  Runs K-Means clustering on a 2D data matrix.
+
+```
+  curl -X POST http://localhost:3000/stats/kmeans \
+    -H "Content-Type: application/json" \
+    -d '{ "data": [[1, 2], [3, 4], [5, 6]], "k": 2 }'
+```
+
+  Returns: { "clusters": [...] }
+
+  ---
+  POST /stats/forecast-hw
+
+  Runs a Holt-Winters forecast on a time series. horizon defaults to 5 if omitted.
+
+```
+  curl -X POST http://localhost:3000/stats/forecast-hw \
+    -H "Content-Type: application/json" \
+    -d '{ "values": [100, 120, 130, 110, 140], "horizon": 5 }'
+```
+
+  Returns: { "forecast": [...] }
+
 Routes are defined in `routes` folder
 
 
