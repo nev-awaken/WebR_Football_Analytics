@@ -35,3 +35,8 @@ packages (dplyr); later launches load them from disk, no network needed.
 - etc
 
 Routes are defined in `routes` folder
+
+
+### To add more packages to project
+List of R packages are mentioned in `webrInstance.js` file. Add new packages and it will be downloaded on first run and stored into r-library.
+So all the upcoming runs doesn't require the download of library again
