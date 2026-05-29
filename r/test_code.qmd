@@ -1,0 +1,51 @@
+```{r}
+library(dplyr)
+```
+
+```{r}
+data <- read.csv("./data/arsenal_match_2015_2016.csv")
+```
+
+```{r}
+glimpse(data)
+```
+
+```{r}
+data$shot_outcome
+```
+
+
+```{r}
+xg_per_shot <- function(xgs){
+    mean(xgs)
+}
+```
+
+
+# Average XG per Shot for a Team
+```{r}
+data %>%
+    filter(!is.na(shot_statsbomb_xg)) %>%
+    group_by(team) %>%
+    summarise(
+        avg_xg_per_shot = xg_per_shot(shot_statsbomb_xg),
+        total_xg        = sum(shot_statsbomb_xg),
+        total_shots     = sum(!is.na(shot_outcome) & shot_outcome != ""),
+        total_goals     = sum(shot_outcome == "Goal")
+    )
+```
+
+
+# Average XG per Shot for a player
+
+```{r}
+data %>%
+    filter(!is.na(shot_statsbomb_xg)) %>%
+    group_by(player) %>%
+    summarise(
+        avg_xg_per_shot = xg_per_shot(shot_statsbomb_xg),
+        total_xg        = sum(shot_statsbomb_xg),
+        total_shots     = sum(!is.na(shot_outcome) & shot_outcome != ""),
+        total_goals     = sum(shot_outcome == "Goal")
+    )
+```

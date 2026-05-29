@@ -1,0 +1,24 @@
+{
+  "name": "webr_sports_analytics",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "patch-package",
+    "prepare": "patch-package"
+  },
+  "author": "",
+  "license": "ISC",
+  "keywords": [],
+  "description": "",
+  "type": "module",
+  "dependencies": {
+    "express": "^5.2.1",
+    "luxon": "^3.7.2",
+    "webr": "^0.6.0",
+    "ws": "^8.21.0"
+  },
+  "devDependencies": {
+    "patch-package": "^8.0.1"
+  }
+}
