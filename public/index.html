@@ -273,6 +273,32 @@
     .bar-fill.yellow { background: var(--yellow); }
     .bar-fill.blue   { background: var(--blue); }
 
+    /* shot map filters */
+    .shot-filter {
+      display: flex; align-items: center; gap: 8px;
+      width: 100%; background: none;
+      border: 1px solid var(--border); border-radius: 6px;
+      color: var(--text); padding: 7px 10px; font-size: 12px;
+      cursor: pointer; text-align: left; transition: opacity .15s;
+      margin-bottom: 6px;
+    }
+    .shot-filter .dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+    .shot-filter .cnt { margin-left: auto; color: var(--muted); font-variant-numeric: tabular-nums; }
+    .shot-filter.off  { opacity: .3; }
+    thead th.sortable { cursor: pointer; user-select: none; }
+    thead th.sortable:hover { color: var(--text); }
+    thead th.sortable[data-asc="true"]::after  { content: ' ↑'; color: var(--green); }
+    thead th.sortable[data-asc="false"]::after { content: ' ↓'; color: var(--green); }
+    #shot-map-container.hide-goal        .outcome-goal        { display: none; }
+    #shot-map-container.hide-saved       .outcome-saved       { display: none; }
+    #shot-map-container.hide-off-target  .outcome-off-target  { display: none; }
+    #shot-map-container.hide-blocked     .outcome-blocked     { display: none; }
+
+    .shot-stat { background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; padding: 10px 12px; margin-bottom: 8px; }
+    .shot-stat .label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 3px; }
+    .shot-stat .value { font-size: 20px; font-weight: 700; font-variant-numeric: tabular-nums; }
+
     /* loading */
     .spinner {
       display: inline-block;
@@ -341,8 +367,8 @@
 
     <div class="sidebar-section">
       <div class="sidebar-label">Team Stats</div>
-      <button class="endpoint-btn" data-path="/team-stats/overview/:team" data-method="GET" data-label="Team Overview">
-        <span class="method get">GET</span> /overview/:team
+      <button class="endpoint-btn" data-path="/team-stats/overview" data-method="GET" data-label="Team Comparison" data-no-team="true">
+        <span class="method get">GET</span> /overview
       </button>
       <button class="endpoint-btn" data-path="/team-stats/shooting" data-method="GET" data-label="All Teams Shooting" data-no-team="true">
         <span class="method get">GET</span> /shooting
@@ -485,6 +511,8 @@
       body = `<div class="error-box">${json.message || 'Request failed'}</div>`;
     } else if (rawPath === '/ping') {
       body = `<div class="stat-cards"><div class="stat-card"><div class="label">Status</div><div class="value green">Alive</div></div><div class="stat-card"><div class="label">Message</div><div class="value" style="font-size:15px">${json.message}</div></div></div>`;
+    } else if (rawPath === '/team-stats/overview') {
+      body = renderComparison(json.data);
     } else if (rawPath === '/team-stats/overview/:team') {
       body = renderOverview(json.data);
     } else if (rawPath === '/team-stats/passing/:team') {
@@ -580,18 +608,179 @@
     }).join('')}</div>`;
   }
 
+  window.sortCompare = function(th) {
+    const table = th.closest('table');
+    const idx   = Array.from(th.parentElement.children).indexOf(th);
+    const asc   = th.dataset.asc !== 'true';
+    table.querySelectorAll('thead th').forEach(h => h.dataset.asc = '');
+    th.dataset.asc = String(asc);
+    const tbody = table.querySelector('tbody');
+    Array.from(tbody.querySelectorAll('tr'))
+      .sort((a, b) => {
+        const av = a.cells[idx].textContent.replace(/[+%]/g, '').trim();
+        const bv = b.cells[idx].textContent.replace(/[+%]/g, '').trim();
+        const an = parseFloat(av), bn = parseFloat(bv);
+        if (!isNaN(an) && !isNaN(bn)) return asc ? an - bn : bn - an;
+        return asc ? av.localeCompare(bv) : bv.localeCompare(av);
+      })
+      .forEach(r => tbody.appendChild(r));
+  };
+
+  function renderComparison(data) {
+    if (!data) return '<p style="color:var(--muted)">No data</p>';
+    const rows = normaliseData(data);
+    if (!rows.length) return '<p style="color:var(--muted)">No datasets loaded — generate a dataset first</p>';
+
+    const cols = [
+      { key: 'team.name',          label: 'Team',        fmt: v => v,                                    num: false },
+      { key: 'goals',              label: 'Goals',       fmt: v => v,                                    num: true  },
+      { key: 'total_shots',        label: 'Shots',       fmt: v => v,                                    num: true  },
+      { key: 'total_xg',          label: 'xG',          fmt: v => (+v).toFixed(2),                      num: true  },
+      { key: 'conversion_rate',    label: 'Conv %',      fmt: v => (+v).toFixed(1) + '%',                num: true  },
+      { key: 'xg_overperformance', label: 'xG ±',        fmt: v => { const n = +v; return (n >= 0 ? '+' : '') + n.toFixed(2); }, num: true },
+      { key: 'pass_accuracy',      label: 'Pass Acc',    fmt: v => (+v).toFixed(1) + '%',                num: true  },
+      { key: 'key_passes',         label: 'Key Passes',  fmt: v => v,                                    num: true  },
+      { key: 'dribble_success',    label: 'Dribble %',   fmt: v => (+v).toFixed(1) + '%',                num: true  },
+      { key: 'pressure_pct',       label: 'Pressure %',  fmt: v => (+v).toFixed(1) + '%',                num: true  },
+    ];
+
+    // Find best value per numeric column for highlighting
+    const best = {};
+    cols.filter(c => c.num && c.key !== 'pressure_pct').forEach(c => {
+      best[c.key] = Math.max(...rows.map(r => parseFloat(r[c.key]) || -Infinity));
+    });
+
+    const header = cols.map(c =>
+      `<th class="sortable" onclick="sortCompare(this)">${c.label}</th>`
+    ).join('');
+
+    const body = rows.map(r => `<tr>${cols.map(c => {
+      const v       = r[c.key];
+      const display = v !== null && v !== undefined ? c.fmt(v) : '—';
+      const isTop   = c.num && best[c.key] !== undefined && parseFloat(v) === best[c.key];
+      return `<td class="${c.num ? 'num' : ''} ${isTop ? 'goal' : ''}">${display}</td>`;
+    }).join('')}</tr>`).join('');
+
+    return `
+      <p style="font-size:12px;color:var(--muted);margin-bottom:12px">
+        Click any column header to sort · Green = best in category
+      </p>
+      <div class="table-wrap">
+        <table><thead><tr>${header}</tr></thead><tbody>${body}</tbody></table>
+      </div>`;
+  }
+
+  window.shotFilterToggle = function(btn) {
+    const container = document.getElementById('shot-map-container');
+    btn.classList.toggle('off');
+    container.classList.toggle('hide-' + btn.dataset.filter);
+  };
+
   function renderShotMap(data) {
     if (!data) return '<p style="color:var(--muted)">No data</p>';
     const rows = normaliseData(data);
     if (!rows.length) return '<p style="color:var(--muted)">No shots found</p>';
-    const sorted = [...rows].sort((a, b) => (b.xg||0) - (a.xg||0));
-    return `<div class="pitch-grid">${sorted.map(r => `
-      <div class="shot-chip ${r.is_goal ? 'is-goal' : ''}">
-        <div class="player" title="${r.player}">${r.player}</div>
-        <div style="color:var(--muted);font-size:11px;margin-bottom:4px">${r.minute}'  ${r.technique||''}</div>
-        <div class="xg-val">xG ${(+r.xg||0).toFixed(3)}</div>
-        <div style="font-size:11px;margin-top:2px;color:${r.is_goal?'var(--green)':'var(--muted)'}">${r.shot_outcome}</div>
-      </div>`).join('')}</div>`;
+
+    function outcomeCategory(outcome) {
+      if (outcome === 'Goal')                 return 'goal';
+      if (outcome && outcome.includes('Saved')) return 'saved';
+      if (outcome === 'Blocked')              return 'blocked';
+      return 'off-target';
+    }
+    function categoryColor(cat) {
+      return { goal: '#3fb950', saved: '#58a6ff', blocked: '#8b949e', 'off-target': '#d29922' }[cat];
+    }
+    function shotRadius(xg) {
+      return Math.max(1.4, Math.min(4.5, (parseFloat(xg) || 0) * 18 + 1.2));
+    }
+
+    // Count per category for filter labels
+    const counts = { goal: 0, saved: 0, blocked: 0, 'off-target': 0 };
+    rows.forEach(r => counts[outcomeCategory(r.shot_outcome)]++);
+
+    // Landscape orientation: goal at top, halfway line at bottom
+    // svgX = sbY (pitch width → horizontal)
+    // svgY = 120 - sbX (pitch length inverted → vertical, goal at 0)
+    const circles = rows.map(r => {
+      const svgX   = parseFloat(r.y).toFixed(2);
+      const svgY   = (120 - parseFloat(r.x)).toFixed(2);
+      const isGoal = r.is_goal === true || r.is_goal === 'true' || r.is_goal === 1;
+      const cat    = outcomeCategory(r.shot_outcome);
+      const color  = categoryColor(cat);
+      const xgVal  = (+r.xg || 0).toFixed(3);
+      return `<circle cx="${svgX}" cy="${svgY}" r="${shotRadius(r.xg)}"
+        fill="${color}" fill-opacity="${isGoal ? 1 : 0.7}"
+        stroke="${isGoal ? 'white' : 'none'}" stroke-width="0.5"
+        class="outcome-${cat}">
+        <title>${r.player}  ${r.minute}' · ${r.shot_outcome} · xG ${xgVal}</title>
+      </circle>`;
+    }).join('');
+
+    const totalShots = rows.length;
+    const totalGoals = counts.goal;
+    const totalXg    = rows.reduce((s, r) => s + (+r.xg || 0), 0).toFixed(2);
+
+    const filters = [
+      { key: 'goal',       label: 'Goal',       color: '#3fb950', stroke: 'white' },
+      { key: 'saved',      label: 'Saved',      color: '#58a6ff', stroke: 'none'  },
+      { key: 'off-target', label: 'Off Target', color: '#d29922', stroke: 'none'  },
+      { key: 'blocked',    label: 'Blocked',    color: '#8b949e', stroke: 'none'  },
+    ].map(f => `
+      <button class="shot-filter" data-filter="${f.key}" onclick="shotFilterToggle(this)">
+        <svg width="9" height="9"><circle cx="4.5" cy="4.5" r="4" fill="${f.color}" stroke="${f.stroke}" stroke-width="1"/></svg>
+        ${f.label} <span class="cnt">${counts[f.key]}</span>
+      </button>`).join('');
+
+    // viewBox: 80 wide × 60 tall (landscape, 4:3)
+    // Pitch markings in landscape coords (goal at top, halfway at bottom)
+    return `
+      <div id="shot-map-container" style="display:flex;gap:20px;align-items:flex-start">
+
+        <svg viewBox="-1 -3 82 65" style="flex:1;min-width:0;max-height:56vh;display:block;border-radius:8px" xmlns="http://www.w3.org/2000/svg">
+          <!-- Background -->
+          <rect x="-1" y="-3" width="82" height="65" fill="#161b22"/>
+          <rect x="0"  y="0"  width="80" height="60" fill="#1e3a1a" rx="1"/>
+
+          <!-- Halfway line (bottom, dashed) -->
+          <line x1="0" y1="60" x2="80" y2="60" stroke="#3d6b3d" stroke-width="0.4" stroke-dasharray="2 2"/>
+
+          <!-- Centre circle (partial arc visible above halfway line) -->
+          <path d="M 30 60 A 10 10 0 0 0 50 60" fill="none" stroke="#3d6b3d" stroke-width="0.5"/>
+          <circle cx="40" cy="60" r="0.6" fill="#3d6b3d"/>
+
+          <!-- Penalty area: sbX 102-120 → svgY 0-18, sbY 18-62 → svgX 18-62 -->
+          <rect x="18" y="0" width="44" height="18" fill="none" stroke="#3d6b3d" stroke-width="0.5"/>
+
+          <!-- Six-yard box: sbX 114-120 → svgY 0-6, sbY 30-50 → svgX 30-50 -->
+          <rect x="30" y="0" width="20" height="6"  fill="none" stroke="#3d6b3d" stroke-width="0.5"/>
+
+          <!-- Penalty arc (below penalty area, svgY > 18) -->
+          <path d="M 32 18 A 10 10 0 0 1 48 18" fill="none" stroke="#3d6b3d" stroke-width="0.5"/>
+
+          <!-- Penalty spot: sbX=108→svgY=12, sbY=40→svgX=40 -->
+          <circle cx="40" cy="12" r="0.6" fill="#3d6b3d"/>
+
+          <!-- Goal (above pitch) -->
+          <rect x="36" y="-2.5" width="8" height="2.5" fill="none" stroke="white" stroke-width="0.7"/>
+
+          <!-- Pitch boundary -->
+          <rect x="0" y="0" width="80" height="60" fill="none" stroke="#3d6b3d" stroke-width="0.6"/>
+
+          ${circles}
+        </svg>
+
+        <div style="width:155px;flex-shrink:0">
+          <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px">Filter</div>
+          ${filters}
+          <div style="margin-top:14px">
+            <div class="shot-stat"><div class="label">Shots</div><div class="value">${totalShots}</div></div>
+            <div class="shot-stat"><div class="label">Goals</div><div class="value" style="color:var(--green)">${totalGoals}</div></div>
+            <div class="shot-stat"><div class="label">Total xG</div><div class="value" style="color:var(--yellow)">${totalXg}</div></div>
+            <div style="font-size:10px;color:var(--muted);margin-top:8px">Circle size = xG</div>
+          </div>
+        </div>
+
+      </div>`;
   }
 
   function renderTable(data) {

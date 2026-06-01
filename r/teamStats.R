@@ -107,6 +107,25 @@ dribble_stats <- function(data, team_name) {
     arrange(desc(attempts))
 }
 
+# Multi-team comparison — only includes teams with a full generated dataset
+all_teams_overview <- function(data) {
+  data %>%
+    filter(team.name %in% dataset_teams) %>%
+    group_by(team.name) %>%
+    summarise(
+      goals              = sum(type.name == ACTION_TYPE$SHOT & shot.outcome.name == SHOT_OUTCOME$GOAL, na.rm = TRUE),
+      total_shots        = sum(type.name == ACTION_TYPE$SHOT),
+      total_xg           = round(sum(shot.statsbomb_xg[type.name == ACTION_TYPE$SHOT], na.rm = TRUE), 2),
+      conversion_rate    = round(goals / pmax(total_shots, 1) * 100, 1),
+      xg_overperformance = round(goals - total_xg, 2),
+      pass_accuracy      = round(sum(type.name == ACTION_TYPE$PASS & is.na(pass.outcome.name)) / pmax(sum(type.name == ACTION_TYPE$PASS), 1) * 100, 1),
+      key_passes         = sum(type.name == ACTION_TYPE$PASS & (pass.shot_assist == TRUE | pass.goal_assist == TRUE), na.rm = TRUE),
+      dribble_success    = round(sum(type.name == ACTION_TYPE$DRIBBLE & dribble.outcome.name == DRIBBLE_OUTCOME$COMPLETE, na.rm = TRUE) / pmax(sum(type.name == ACTION_TYPE$DRIBBLE), 1) * 100, 1),
+      pressure_pct       = round(sum(under_pressure == TRUE, na.rm = TRUE) / n() * 100, 1)
+    ) %>%
+    arrange(desc(total_xg))
+}
+
 # High-level performance summary for a team across all categories
 team_overview <- function(data, team_name) {
   d        <- data %>% filter(team.name == team_name)

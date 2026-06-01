@@ -38,15 +38,25 @@ export async function loadRdsData(webR, rdsFiles, rootDir) {
   const webRDir = "/home/web_user/data";
   try { await webR.FS.mkdir(webRDir); } catch {}
 
+  await webR.evalR('dataset_teams <- character(0)');
+
   for (const file of rdsFiles) {
     const localPath = path.join(rootDir, "data", file);
     const webRPath  = `${webRDir}/${file}`;
+    const jsonPath  = path.join(rootDir, "data", file.replace(".rds", ".json"));
+
     await webR.FS.writeFile(webRPath, new Uint8Array(fs.readFileSync(localPath)));
     await webR.evalR(`
       tmp        <- readRDS("${webRPath}")
       match_data <- if (exists("match_data")) dplyr::bind_rows(match_data, tmp) else tmp
       rm(tmp)
     `);
+
+    if (fs.existsSync(jsonPath)) {
+      const team = JSON.parse(fs.readFileSync(jsonPath, "utf8")).team.replace(/"/g, '\\"');
+      await webR.evalR(`dataset_teams <- c(dataset_teams, "${team}")`);
+    }
+
     console.log(`Loaded: ${file}`);
   }
 }

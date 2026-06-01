@@ -22,7 +22,7 @@ Run `FreeCompetitions()` interactively to look up IDs, then set them here
 ```{r}
 COMP_ID    <- 2          # e.g. 2 = Premier League (Comp ID)
 SEASON_ID  <- 27         # e.g. 27 = 2015/2016 (Season ID)
-TEAM_NAME  <- "Manchester United"
+TEAM_NAME  <- "Manchester City"
 DATASET_DIR <- "./data"
 ```
 

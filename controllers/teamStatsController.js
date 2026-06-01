@@ -90,6 +90,17 @@ export const dribbleStats = async (req, res) => {
   }
 };
 
+// Multi-team comparison — only full-season datasets, no partial opponent data
+export const allTeamsOverview = async (req, res) => {
+  try {
+    await ready;
+    const result = await webR.evalR("all_teams_overview(match_data)");
+    return ok(res, await result.toJs(), "all teams overview");
+  } catch (err) {
+    return fail(res, err.message, "all teams overview failed", 500);
+  }
+};
+
 // High-level performance summary for a team
 export const teamOverview = async (req, res) => {
   try {

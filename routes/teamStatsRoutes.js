@@ -4,6 +4,7 @@ import * as teamStats from '../controllers/teamStatsController.js';
 const router = express.Router();
 
 router.get("/datasets",          teamStats.getDatasets);
+router.get("/overview",          teamStats.allTeamsOverview);
 router.get("/overview/:team",    teamStats.teamOverview);
 router.get("/shooting",          teamStats.teamShootingStats);
 router.get("/shooting/:team",    teamStats.playerShootingStats);

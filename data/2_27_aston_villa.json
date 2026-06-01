@@ -1,0 +1,277 @@
+{
+  "competition_id": 2,
+  "season_id": 27,
+  "team": "Aston Villa",
+  "season": "2015/2016",
+  "competition": "Premier League",
+  "total_matches": 38,
+  "file": "2_27_aston_villa.rds",
+  "matches": [
+    {
+      "match_id": 3754128,
+      "match_date": "2015-08-08",
+      "opponent": "AFC Bournemouth",
+      "is_home": false,
+      "score": "0-1"
+    },
+    {
+      "match_id": 3754107,
+      "match_date": "2015-08-14",
+      "opponent": "Manchester United",
+      "is_home": true,
+      "score": "0-1"
+    },
+    {
+      "match_id": 3754190,
+      "match_date": "2015-08-22",
+      "opponent": "Crystal Palace",
+      "is_home": false,
+      "score": "2-1"
+    },
+    {
+      "match_id": 3754204,
+      "match_date": "2015-08-29",
+      "opponent": "Sunderland",
+      "is_home": true,
+      "score": "2-2"
+    },
+    {
+      "match_id": 3754106,
+      "match_date": "2015-09-13",
+      "opponent": "Leicester City",
+      "is_home": false,
+      "score": "3-2"
+    },
+    {
+      "match_id": 3754068,
+      "match_date": "2015-09-19",
+      "opponent": "West Bromwich Albion",
+      "is_home": true,
+      "score": "0-1"
+    },
+    {
+      "match_id": 3754212,
+      "match_date": "2015-09-26",
+      "opponent": "Liverpool",
+      "is_home": false,
+      "score": "3-2"
+    },
+    {
+      "match_id": 3754330,
+      "match_date": "2015-10-03",
+      "opponent": "Stoke City",
+      "is_home": true,
+      "score": "0-1"
+    },
+    {
+      "match_id": 3754115,
+      "match_date": "2015-10-17",
+      "opponent": "Chelsea",
+      "is_home": false,
+      "score": "2-0"
+    },
+    {
+      "match_id": 3754017,
+      "match_date": "2015-10-24",
+      "opponent": "Swansea City",
+      "is_home": true,
+      "score": "1-2"
+    },
+    {
+      "match_id": 3754029,
+      "match_date": "2015-11-02",
+      "opponent": "Tottenham Hotspur",
+      "is_home": false,
+      "score": "3-1"
+    },
+    {
+      "match_id": 3754258,
+      "match_date": "2015-11-08",
+      "opponent": "Manchester City",
+      "is_home": true,
+      "score": "0-0"
+    },
+    {
+      "match_id": 3754283,
+      "match_date": "2015-11-21",
+      "opponent": "Everton",
+      "is_home": false,
+      "score": "4-0"
+    },
+    {
+      "match_id": 3754178,
+      "match_date": "2015-11-28",
+      "opponent": "Watford",
+      "is_home": true,
+      "score": "2-3"
+    },
+    {
+      "match_id": 3754113,
+      "match_date": "2015-12-05",
+      "opponent": "Southampton",
+      "is_home": false,
+      "score": "1-1"
+    },
+    {
+      "match_id": 3754117,
+      "match_date": "2015-12-13",
+      "opponent": "Arsenal",
+      "is_home": true,
+      "score": "0-2"
+    },
+    {
+      "match_id": 3754136,
+      "match_date": "2015-12-19",
+      "opponent": "Newcastle United",
+      "is_home": false,
+      "score": "1-1"
+    },
+    {
+      "match_id": 3754285,
+      "match_date": "2015-12-26",
+      "opponent": "West Ham United",
+      "is_home": true,
+      "score": "1-1"
+    },
+    {
+      "match_id": 3754130,
+      "match_date": "2015-12-28",
+      "opponent": "Norwich City",
+      "is_home": false,
+      "score": "2-0"
+    },
+    {
+      "match_id": 3754036,
+      "match_date": "2016-01-02",
+      "opponent": "Sunderland",
+      "is_home": false,
+      "score": "3-1"
+    },
+    {
+      "match_id": 3753981,
+      "match_date": "2016-01-12",
+      "opponent": "Crystal Palace",
+      "is_home": true,
+      "score": "1-0"
+    },
+    {
+      "match_id": 3754250,
+      "match_date": "2016-01-16",
+      "opponent": "Leicester City",
+      "is_home": true,
+      "score": "1-1"
+    },
+    {
+      "match_id": 3754084,
+      "match_date": "2016-01-23",
+      "opponent": "West Bromwich Albion",
+      "is_home": false,
+      "score": "0-0"
+    },
+    {
+      "match_id": 3753997,
+      "match_date": "2016-02-02",
+      "opponent": "West Ham United",
+      "is_home": false,
+      "score": "2-0"
+    },
+    {
+      "match_id": 3754306,
+      "match_date": "2016-02-06",
+      "opponent": "Norwich City",
+      "is_home": true,
+      "score": "2-0"
+    },
+    {
+      "match_id": 3754214,
+      "match_date": "2016-02-14",
+      "opponent": "Liverpool",
+      "is_home": true,
+      "score": "0-6"
+    },
+    {
+      "match_id": 3754321,
+      "match_date": "2016-02-27",
+      "opponent": "Stoke City",
+      "is_home": false,
+      "score": "2-1"
+    },
+    {
+      "match_id": 3754327,
+      "match_date": "2016-03-01",
+      "opponent": "Everton",
+      "is_home": true,
+      "score": "1-3"
+    },
+    {
+      "match_id": 3754249,
+      "match_date": "2016-03-05",
+      "opponent": "Manchester City",
+      "is_home": false,
+      "score": "4-0"
+    },
+    {
+      "match_id": 3754053,
+      "match_date": "2016-03-13",
+      "opponent": "Tottenham Hotspur",
+      "is_home": true,
+      "score": "0-2"
+    },
+    {
+      "match_id": 3754224,
+      "match_date": "2016-03-19",
+      "opponent": "Swansea City",
+      "is_home": false,
+      "score": "1-0"
+    },
+    {
+      "match_id": 3754075,
+      "match_date": "2016-04-02",
+      "opponent": "Chelsea",
+      "is_home": true,
+      "score": "0-4"
+    },
+    {
+      "match_id": 3754262,
+      "match_date": "2016-04-09",
+      "opponent": "AFC Bournemouth",
+      "is_home": true,
+      "score": "1-2"
+    },
+    {
+      "match_id": 3754295,
+      "match_date": "2016-04-16",
+      "opponent": "Manchester United",
+      "is_home": false,
+      "score": "1-0"
+    },
+    {
+      "match_id": 3754282,
+      "match_date": "2016-04-23",
+      "opponent": "Southampton",
+      "is_home": true,
+      "score": "2-4"
+    },
+    {
+      "match_id": 3754063,
+      "match_date": "2016-04-30",
+      "opponent": "Watford",
+      "is_home": false,
+      "score": "3-2"
+    },
+    {
+      "match_id": 3754070,
+      "match_date": "2016-05-07",
+      "opponent": "Newcastle United",
+      "is_home": true,
+      "score": "0-0"
+    },
+    {
+      "match_id": 3754041,
+      "match_date": "2016-05-15",
+      "opponent": "Arsenal",
+      "is_home": false,
+      "score": "4-0"
+    }
+  ]
+}
