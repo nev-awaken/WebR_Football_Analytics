@@ -47,8 +47,8 @@ export async function loadRdsData(webR, rdsFiles, rootDir) {
 
     await webR.FS.writeFile(webRPath, new Uint8Array(fs.readFileSync(localPath)));
     await webR.evalR(`
-      tmp        <- readRDS("${webRPath}")
-      match_data <- if (exists("match_data")) dplyr::bind_rows(match_data, tmp) else tmp
+      tmp        <- data.table::as.data.table(readRDS("${webRPath}"))
+      match_data <- if (exists("match_data")) data.table::rbindlist(list(match_data, tmp), fill = TRUE) else tmp
       rm(tmp)
     `);
 

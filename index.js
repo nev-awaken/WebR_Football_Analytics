@@ -16,11 +16,14 @@ const limiter = rateLimit({
   message: { success: false, message: "Too many requests — try again in a minute" }
 });
 
+const rateLimitDisabled = process.env.DISABLE_RATE_LIMIT === 'true';
+if (rateLimitDisabled) console.log("Rate limiting disabled (DISABLE_RATE_LIMIT=true)");
+
 app.use(helmet({ contentSecurityPolicy: false }));
 app.use(express.json());
 app.use(express.static('public'));
-app.use("/stats",      limiter, statsRoutes);
-app.use("/team-stats", limiter, teamStatsRoutes);
+app.use("/stats",      ...(rateLimitDisabled ? [] : [limiter]), statsRoutes);
+app.use("/team-stats", ...(rateLimitDisabled ? [] : [limiter]), teamStatsRoutes);
 app.use("/",           pingRoutes);
 
 // Catch All Route

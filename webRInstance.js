@@ -11,7 +11,7 @@ import {
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const PACKAGES  = ["dplyr"];
+const PACKAGES  = ["data.table"];
 const R_SCRIPTS = ["teamStats.R"];
 const R_DIR     = "r";
 
