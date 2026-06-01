@@ -1,2 +1,3 @@
 r-library/
 node_modules/
+.env
