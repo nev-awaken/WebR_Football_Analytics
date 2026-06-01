@@ -30,7 +30,7 @@ export const teamShootingStats = async (req, res) => {
   } catch (err) {
     return fail(res, err.message, "team shooting stats failed", 500);
   } finally {
-    shelter.purge();
+    await shelter.purge();
   }
 };
 
@@ -39,14 +39,13 @@ export const playerShootingStats = async (req, res) => {
   const shelter = await new webR.Shelter();
   try {
     await ready;
-    await webR.objs.globalEnv.bind("team_name", req.params.team);
-    const result = await shelter.evalR("player_shooting_stats(match_data, team_name)");
+    const result = await shelter.evalR(`player_shooting_stats(match_data, ${JSON.stringify(req.params.team)})`);
     const data   = await result.toJs();
     return ok(res, data, "player shooting stats");
   } catch (err) {
     return fail(res, err.message, "player shooting stats failed", 500);
   } finally {
-    shelter.purge();
+    await shelter.purge();
   }
 };
 
@@ -55,14 +54,13 @@ export const teamPassAccuracy = async (req, res) => {
   const shelter = await new webR.Shelter();
   try {
     await ready;
-    await webR.objs.globalEnv.bind("team_name", req.params.team);
-    const result = await shelter.evalR("pass_accuracy(match_data, team_name)");
+    const result = await shelter.evalR(`pass_accuracy(match_data, ${JSON.stringify(req.params.team)})`);
     const data   = await result.toJs();
     return ok(res, data, "pass accuracy");
   } catch (err) {
     return fail(res, err.message, "pass accuracy failed", 500);
   } finally {
-    shelter.purge();
+    await shelter.purge();
   }
 };
 
@@ -71,14 +69,13 @@ export const topPassers = async (req, res) => {
   const shelter = await new webR.Shelter();
   try {
     await ready;
-    await webR.objs.globalEnv.bind("team_name", req.params.team);
-    const result = await shelter.evalR("top_passers(match_data, team_name)");
+    const result = await shelter.evalR(`top_passers(match_data, ${JSON.stringify(req.params.team)})`);
     const data   = await result.toJs();
     return ok(res, data, "top passers");
   } catch (err) {
     return fail(res, err.message, "top passers failed", 500);
   } finally {
-    shelter.purge();
+    await shelter.purge();
   }
 };
 
@@ -87,14 +84,13 @@ export const shotMap = async (req, res) => {
   const shelter = await new webR.Shelter();
   try {
     await ready;
-    await webR.objs.globalEnv.bind("team_name", req.params.team);
-    const result = await shelter.evalR("shot_map(match_data, team_name)");
+    const result = await shelter.evalR(`shot_map(match_data, ${JSON.stringify(req.params.team)})`);
     const data   = await result.toJs();
     return ok(res, data, "shot map");
   } catch (err) {
     return fail(res, err.message, "shot map failed", 500);
   } finally {
-    shelter.purge();
+    await shelter.purge();
   }
 };
 
@@ -103,14 +99,13 @@ export const dribbleStats = async (req, res) => {
   const shelter = await new webR.Shelter();
   try {
     await ready;
-    await webR.objs.globalEnv.bind("team_name", req.params.team);
-    const result = await shelter.evalR("dribble_stats(match_data, team_name)");
+    const result = await shelter.evalR(`dribble_stats(match_data, ${JSON.stringify(req.params.team)})`);
     const data   = await result.toJs();
     return ok(res, data, "dribble stats");
   } catch (err) {
     return fail(res, err.message, "dribble stats failed", 500);
   } finally {
-    shelter.purge();
+    await shelter.purge();
   }
 };
 
@@ -125,7 +120,7 @@ export const allTeamsOverview = async (req, res) => {
   } catch (err) {
     return fail(res, err.message, "all teams overview failed", 500);
   } finally {
-    shelter.purge();
+    await shelter.purge();
   }
 };
 
@@ -134,14 +129,13 @@ export const teamOverview = async (req, res) => {
   const shelter = await new webR.Shelter();
   try {
     await ready;
-    await webR.objs.globalEnv.bind("team_name", req.params.team);
-    const result = await shelter.evalR("team_overview(match_data, team_name)");
+    const result = await shelter.evalR(`team_overview(match_data, ${JSON.stringify(req.params.team)})`);
     const data   = await result.toJs();
     return ok(res, data, "team overview");
   } catch (err) {
     return fail(res, err.message, "team overview failed", 500);
   } finally {
-    shelter.purge();
+    await shelter.purge();
   }
 };
 
@@ -150,13 +144,12 @@ export const pressurePerformance = async (req, res) => {
   const shelter = await new webR.Shelter();
   try {
     await ready;
-    await webR.objs.globalEnv.bind("team_name", req.params.team);
-    const result = await shelter.evalR("pressure_performance(match_data, team_name)");
+    const result = await shelter.evalR(`pressure_performance(match_data, ${JSON.stringify(req.params.team)})`);
     const data   = await result.toJs();
     return ok(res, data, "pressure performance");
   } catch (err) {
     return fail(res, err.message, "pressure performance failed", 500);
   } finally {
-    shelter.purge();
+    await shelter.purge();
   }
 };

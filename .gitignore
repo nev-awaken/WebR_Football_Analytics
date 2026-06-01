@@ -2,3 +2,5 @@ r-library/
 node_modules/
 .env
 start.bat
+loadtest.js
+testResult.txt

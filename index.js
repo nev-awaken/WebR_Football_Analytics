@@ -4,6 +4,7 @@ import rateLimit from 'express-rate-limit';
 import { statsRoutes } from './routes/statsRoutes.js';
 import { pingRoutes } from './routes/pingRoutes.js';
 import { teamStatsRoutes } from './routes/teamStatsRoutes.js';
+import { startMonitor } from './helpers/monitor.js';
 
 const app  = express();
 const port = process.env.PORT || 3000;
@@ -34,3 +35,5 @@ app.all('*splat', (req, res) => {
 app.listen(port, () => {
   console.log(`Listening on http://localhost:${port}`);
 });
+
+startMonitor();

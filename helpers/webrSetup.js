@@ -10,7 +10,7 @@ export async function mountPackageLibrary(webR, rootDir) {
   fs.mkdirSync(libHostDir, { recursive: true });
   await webR.FS.mkdir(LIB_VFS_DIR);
   await webR.FS.mount("NODEFS", { root: libHostDir }, LIB_VFS_DIR);
-  await webR.evalR(`.libPaths(c('${LIB_VFS_DIR}', .libPaths()))`);
+  await webR.evalRVoid(`.libPaths(c('${LIB_VFS_DIR}', .libPaths()))`);
 }
 
 // Install only the packages not already cached on disk, then load all of them.
@@ -24,29 +24,30 @@ export async function ensurePackages(webR, packages, rootDir) {
   if (missing.length) {
     console.log(`Caching to disk (one-time): ${missing.join(", ")}`);
     const vec = missing.map((p) => `"${p}"`).join(", ");
-    await webR.evalR(`webr::install(c(${vec}), mount = FALSE)`);
+    await webR.evalRVoid(`webr::install(c(${vec}), mount = FALSE)`);
   } else {
     console.log("All packages served from local cache — no download");
   }
 
   for (const pkg of packages) {
-    await webR.evalR(`suppressPackageStartupMessages(library(${pkg}))`);
+    await webR.evalRVoid(`suppressPackageStartupMessages(library(${pkg}))`);
   }
 }
 
 export async function loadRdsData(webR, rdsFiles, rootDir) {
-  const webRDir = "/home/web_user/data";
-  try { await webR.FS.mkdir(webRDir); } catch {}
+  const webRDir  = "/home/web_user/data";
+  const dataHost = path.join(rootDir, "data");
+  await webR.FS.mkdir(webRDir);
+  // Mount the host data dir directly — no file bytes copied into the WASM heap
+  await webR.FS.mount("NODEFS", { root: dataHost }, webRDir);
 
-  await webR.evalR('dataset_teams <- character(0)');
+  await webR.evalRVoid('dataset_teams <- character(0)');
 
   for (const file of rdsFiles) {
-    const localPath = path.join(rootDir, "data", file);
-    const webRPath  = `${webRDir}/${file}`;
-    const jsonPath  = path.join(rootDir, "data", file.replace(".rds", ".json"));
+    const webRPath = `${webRDir}/${file}`;
+    const jsonPath = path.join(rootDir, "data", file.replace(".rds", ".json"));
 
-    await webR.FS.writeFile(webRPath, new Uint8Array(fs.readFileSync(localPath)));
-    await webR.evalR(`
+    await webR.evalRVoid(`
       tmp        <- readRDS("${webRPath}")
       match_data <- if (exists("match_data")) dplyr::bind_rows(match_data, tmp) else tmp
       rm(tmp)
@@ -54,7 +55,7 @@ export async function loadRdsData(webR, rdsFiles, rootDir) {
 
     if (fs.existsSync(jsonPath)) {
       const team = JSON.parse(fs.readFileSync(jsonPath, "utf8")).team.replace(/"/g, '\\"');
-      await webR.evalR(`dataset_teams <- c(dataset_teams, "${team}")`);
+      await webR.evalRVoid(`dataset_teams <- c(dataset_teams, "${team}")`);
     }
 
     console.log(`Loaded: ${file}`);
@@ -67,6 +68,6 @@ export async function loadRScripts(webR, files, scriptDir) {
     const webRPath = `/home/web_user/${filename}`;
     const encoded = new TextEncoder().encode(fs.readFileSync(localPath, "utf8"));
     await webR.FS.writeFile(webRPath, encoded);
-    await webR.evalR(`source("${webRPath}", local = globalenv())`);
+    await webR.evalRVoid(`source("${webRPath}", local = globalenv())`);
   }
 }
