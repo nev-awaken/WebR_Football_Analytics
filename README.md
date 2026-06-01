@@ -6,6 +6,11 @@ R's statistical power inside a Node.js/Express backend — **no R installation r
 
 ---
 
+> **Data Attribution**
+> Whilst we are keen to share data and facilitate research, we also urge you to be responsible with the data. Please credit StatsBomb as your data source when using the data and visit [statsbomb.com/media-pack](https://statsbomb.com/media-pack/) to obtain their logos for public use.
+
+---
+
 ## Requirements
 
 - Node.js ≥ 18

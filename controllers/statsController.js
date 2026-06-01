@@ -1,4 +1,4 @@
-import { webR } from "../webrInstance.js";
+import { webR } from "../webRInstance.js";
 import { ok, fail } from "../helpers/response.js";
 
 export const summaryStats = async (req, res) => {

@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import { webR, ready } from "../webrInstance.js";
+import { webR, ready } from "../webRInstance.js";
 import { ok, fail } from "../helpers/response.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
