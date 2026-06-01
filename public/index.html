@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Football Analytics Dashboard</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0d1117;
+      --surface:   #161b22;
+      --border:    #30363d;
+      --green:     #3fb950;
+      --green-dim: #1a4d2a;
+      --text:      #e6edf3;
+      --muted:     #8b949e;
+      --red:       #f85149;
+      --yellow:    #d29922;
+      --blue:      #58a6ff;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 28px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    header .badge {
+      background: var(--green-dim);
+      color: var(--green);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 12px;
+      border: 1px solid var(--green);
+      letter-spacing: .5px;
+    }
+    header h1 { font-size: 18px; font-weight: 600; }
+    header p  { font-size: 13px; color: var(--muted); margin-left: auto; }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      height: calc(100vh - 57px);
+    }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      overflow-y: auto;
+      padding: 20px 0;
+    }
+    .sidebar-section { margin-bottom: 8px; }
+    .sidebar-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: .8px;
+      text-transform: uppercase;
+      padding: 6px 20px;
+    }
+    .endpoint-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding: 9px 20px;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 13px;
+      cursor: pointer;
+      text-align: left;
+      transition: background .12s;
+    }
+    .endpoint-btn:hover  { background: rgba(255,255,255,.05); }
+    .endpoint-btn.active { background: var(--green-dim); color: var(--green); }
+    .method {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 5px;
+      border-radius: 4px;
+      min-width: 32px;
+      text-align: center;
+    }
+    .get  { background: #0d3b52; color: var(--blue); }
+    .post { background: #2d2a16; color: var(--yellow); }
+
+    .team-selector {
+      padding: 12px 16px;
+      margin: 0 12px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+    .team-selector label {
+      display: block;
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 6px;
+      font-weight: 600;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+    }
+    .team-selector select,
+    .team-selector input {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 7px 10px;
+      border-radius: 6px;
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+    .team-selector select:last-child,
+    .team-selector input:last-child { margin-bottom: 0; }
+
+    /* ── Main panel ── */
+    .main {
+      overflow-y: auto;
+      padding: 28px 32px;
+    }
+
+    .placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: var(--muted);
+      gap: 12px;
+    }
+    .placeholder svg { opacity: .3; }
+    .placeholder p { font-size: 14px; }
+
+    .result-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .result-header h2 { font-size: 17px; font-weight: 600; flex: 1; }
+    .result-url {
+      font-family: monospace;
+      font-size: 12px;
+      color: var(--muted);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 5px 10px;
+      border-radius: 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 440px;
+    }
+    .result-meta {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .result-meta span { color: var(--green); font-weight: 600; }
+
+    .status-pill {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 10px;
+    }
+    .status-ok  { background: var(--green-dim); color: var(--green); }
+    .status-err { background: #3b1212; color: var(--red); }
+
+    /* table */
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    thead th {
+      background: var(--surface);
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 11px;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      padding: 10px 14px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    tbody tr { border-bottom: 1px solid var(--border); }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: rgba(255,255,255,.03); }
+    tbody td { padding: 10px 14px; color: var(--text); white-space: nowrap; }
+
+    .num  { font-variant-numeric: tabular-nums; font-family: monospace; }
+    .goal { color: var(--green); font-weight: 600; }
+    .high { color: var(--yellow); }
+
+    /* stat cards for single-row results */
+    .stat-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      gap: 14px;
+      margin-top: 4px;
+    }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 18px;
+    }
+    .stat-card .label { font-size: 11px; color: var(--muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: .5px; }
+    .stat-card .value { font-size: 24px; font-weight: 700; color: var(--text); font-variant-numeric: tabular-nums; }
+    .stat-card .value.green { color: var(--green); }
+    .stat-card .value.yellow { color: var(--yellow); }
+
+    /* loading */
+    .spinner {
+      display: inline-block;
+      width: 18px; height: 18px;
+      border: 2px solid var(--border);
+      border-top-color: var(--green);
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .error-box {
+      background: #1f0c0c;
+      border: 1px solid #5a1a1a;
+      border-radius: 8px;
+      padding: 16px 20px;
+      color: var(--red);
+      font-size: 13px;
+    }
+
+    .pitch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 10px;
+    }
+    .shot-chip {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px 12px;
+      font-size: 12px;
+    }
+    .shot-chip .player { font-weight: 600; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .shot-chip .xg-val { color: var(--blue); font-variant-numeric: tabular-nums; }
+    .shot-chip.is-goal { border-color: var(--green); background: var(--green-dim); }
+    .shot-chip.is-goal .player { color: var(--green); }
+  </style>
+</head>
+<body>
+
+<header>
+  <span>⚽</span>
+  <h1>Football Analytics Dashboard</h1>
+  <span class="badge">WebR + Express</span>
+  <p>Arsenal 2015–16 · StatsBomb</p>
+</header>
+
+<div class="layout">
+
+  <!-- Sidebar -->
+  <nav class="sidebar">
+
+    <div class="team-selector">
+      <label>Team</label>
+      <select id="teamSelect">
+        <option value="Arsenal">Arsenal</option>
+        <option value="Aston Villa">Aston Villa</option>
+      </select>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">General</div>
+      <button class="endpoint-btn" data-path="/ping" data-method="GET" data-label="Health Check">
+        <span class="method get">GET</span> /ping
+      </button>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Team Stats</div>
+      <button class="endpoint-btn" data-path="/team-stats/shooting" data-method="GET" data-label="All Teams Shooting" data-no-team="true">
+        <span class="method get">GET</span> /shooting
+      </button>
+      <button class="endpoint-btn" data-path="/team-stats/shooting/:team" data-method="GET" data-label="Player Shooting">
+        <span class="method get">GET</span> /shooting/:team
+      </button>
+      <button class="endpoint-btn" data-path="/team-stats/passing/:team" data-method="GET" data-label="Pass Accuracy">
+        <span class="method get">GET</span> /passing/:team
+      </button>
+      <button class="endpoint-btn" data-path="/team-stats/top-passers/:team" data-method="GET" data-label="Top Passers">
+        <span class="method get">GET</span> /top-passers/:team
+      </button>
+      <button class="endpoint-btn" data-path="/team-stats/shot-map/:team" data-method="GET" data-label="Shot Map">
+        <span class="method get">GET</span> /shot-map/:team
+      </button>
+      <button class="endpoint-btn" data-path="/team-stats/dribbles/:team" data-method="GET" data-label="Dribble Stats">
+        <span class="method get">GET</span> /dribbles/:team
+      </button>
+      <button class="endpoint-btn" data-path="/team-stats/pressure/:team" data-method="GET" data-label="Pressure Performance">
+        <span class="method get">GET</span> /pressure/:team
+      </button>
+    </div>
+
+    <!-- <div class="sidebar-section">
+      <div class="sidebar-label">Stats (POST)</div>
+      <button class="endpoint-btn" data-path="/stats/summary" data-method="POST" data-label="Summary Stats" data-body='{"values":[23,45,67,12,89,34,56]}'>
+        <span class="method post">POST</span> /summary
+      </button>
+      <button class="endpoint-btn" data-path="/stats/t-test" data-method="POST" data-label="T-Test" data-body='{"x":[23,45,67,34],"y":[55,72,61,48]}'>
+        <span class="method post">POST</span> /t-test
+      </button>
+      <button class="endpoint-btn" data-path="/stats/kmeans" data-method="POST" data-label="K-Means" data-body='{"data":[[1,2],[3,4],[5,6],[7,8],[2,1],[4,3]],"k":2}'>
+        <span class="method post">POST</span> /kmeans
+      </button>
+      <button class="endpoint-btn" data-path="/stats/forecast-hw" data-method="POST" data-label="HW Forecast" data-body='{"values":[100,120,130,110,140,135,150],"horizon":5}'>
+        <span class="method post">POST</span> /forecast-hw
+      </button>
+    </div> -->
+
+  </nav>
+
+  <!-- Main -->
+  <main class="main" id="main">
+    <div class="placeholder">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/>
+      </svg>
+      <p>Select an endpoint from the sidebar to fetch data</p>
+    </div>
+  </main>
+
+</div>
+
+<script>
+  const main = document.getElementById('main');
+  const teamSelect = document.getElementById('teamSelect');
+  let activeBtn = null;
+
+  document.querySelectorAll('.endpoint-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (activeBtn) activeBtn.classList.remove('active');
+      btn.classList.add('active');
+      activeBtn = btn;
+      fetchEndpoint(btn);
+    });
+  });
+
+  async function fetchEndpoint(btn) {
+    const rawPath  = btn.dataset.path;
+    const method   = btn.dataset.method;
+    const label    = btn.dataset.label;
+    const body     = btn.dataset.body;
+    const noTeam   = btn.dataset.noTeam === 'true';
+    const team     = teamSelect.value;
+    const url      = rawPath.replace(':team', encodeURIComponent(team));
+
+    main.innerHTML = `<div style="padding:8px 0;color:var(--muted);font-size:14px"><span class="spinner"></span>Fetching <code>${url}</code>…</div>`;
+
+    const start = Date.now();
+    try {
+      const opts = { method };
+      if (body) {
+        opts.headers = { 'Content-Type': 'application/json' };
+        opts.body = body;
+      }
+      const res  = await fetch(url, opts);
+      const json = await res.json();
+      const ms   = Date.now() - start;
+      render(label, url, json, res.status, ms, rawPath);
+    } catch (err) {
+      main.innerHTML = `
+        <div class="result-header"><h2>${label}</h2></div>
+        <div class="error-box">Network error: ${err.message}</div>`;
+    }
+  }
+
+  function render(label, url, json, status, ms, rawPath) {
+    const ok  = json.success !== false;
+    const pill = ok
+      ? `<span class="status-pill status-ok">200 OK</span>`
+      : `<span class="status-pill status-err">${status} Error</span>`;
+
+    let body = '';
+
+    if (!ok) {
+      body = `<div class="error-box">${json.message || 'Request failed'}</div>`;
+    } else if (rawPath === '/ping') {
+      body = `<div class="stat-cards"><div class="stat-card"><div class="label">Status</div><div class="value green">Alive</div></div><div class="stat-card"><div class="label">Message</div><div class="value" style="font-size:15px">${json.message}</div></div></div>`;
+    } else if (rawPath === '/team-stats/passing/:team') {
+      body = renderPassCards(json.data);
+    } else if (rawPath === '/team-stats/shot-map/:team') {
+      body = renderShotMap(json.data);
+    } else if (rawPath === '/stats/t-test') {
+      const pv = json.data?.p_value ?? json.data;
+      body = `<div class="stat-cards">
+        <div class="stat-card"><div class="label">p-value</div><div class="value ${pv < 0.05 ? 'green' : 'yellow'}">${typeof pv === 'number' ? pv.toFixed(4) : pv}</div></div>
+        <div class="stat-card"><div class="label">Significant?</div><div class="value ${pv < 0.05 ? 'green' : 'yellow'}">${pv < 0.05 ? 'Yes (p<0.05)' : 'No'}</div></div>
+      </div>`;
+    } else {
+      body = renderTable(json.data);
+    }
+
+    main.innerHTML = `
+      <div class="result-header">
+        <h2>${label}</h2>
+        ${pill}
+        <span class="result-url">${url}</span>
+      </div>
+      <div class="result-meta">Returned in <span>${ms}ms</span> · ${new Date().toLocaleTimeString()}</div>
+      ${body}`;
+  }
+
+  function renderPassCards(data) {
+    if (!data) return '<p style="color:var(--muted)">No data</p>';
+    const row = Array.isArray(data) ? flattenRow(data) : data;
+    const fields = [
+      { key: 'total_passes', label: 'Total Passes' },
+      { key: 'completed',    label: 'Completed' },
+      { key: 'incomplete',   label: 'Incomplete' },
+      { key: 'accuracy_pct', label: 'Accuracy %', suffix: '%', color: 'green' },
+      { key: 'avg_length',   label: 'Avg Length (m)' },
+      { key: 'key_passes',   label: 'Key Passes', color: 'yellow' },
+    ];
+    return `<div class="stat-cards">${fields.map(f => {
+      const val = row[f.key];
+      const display = val !== undefined ? val : '—';
+      return `<div class="stat-card"><div class="label">${f.label}</div><div class="value ${f.color||''}">${display}${f.suffix||''}</div></div>`;
+    }).join('')}</div>`;
+  }
+
+  function renderShotMap(data) {
+    if (!data) return '<p style="color:var(--muted)">No data</p>';
+    const rows = normaliseData(data);
+    if (!rows.length) return '<p style="color:var(--muted)">No shots found</p>';
+    const sorted = [...rows].sort((a, b) => (b.shot_statsbomb_xg||0) - (a.shot_statsbomb_xg||0));
+    return `<div class="pitch-grid">${sorted.map(r => `
+      <div class="shot-chip ${r.is_goal ? 'is-goal' : ''}">
+        <div class="player" title="${r.player}">${r.player}</div>
+        <div style="color:var(--muted);font-size:11px;margin-bottom:4px">${r.minute}'  ${r.shot_technique||''}</div>
+        <div class="xg-val">xG ${(+r.shot_statsbomb_xg||0).toFixed(3)}</div>
+        <div style="font-size:11px;margin-top:2px;color:${r.is_goal?'var(--green)':'var(--muted)'}">${r.shot_outcome}</div>
+      </div>`).join('')}</div>`;
+  }
+
+  function renderTable(data) {
+    if (data === null || data === undefined) return '<p style="color:var(--muted)">No data returned</p>';
+    const rows = normaliseData(data);
+    if (!rows.length) return '<p style="color:var(--muted)">Empty result</p>';
+    const cols = Object.keys(rows[0]);
+    return `<div class="table-wrap"><table>
+      <thead><tr>${cols.map(c => `<th>${c.replace(/_/g,' ')}</th>`).join('')}</tr></thead>
+      <tbody>${rows.map(r => `<tr>${cols.map(c => {
+        const v = r[c];
+        const isGoal = c === 'goals' || c === 'total_goals';
+        const isNum  = typeof v === 'number' && !isGoal;
+        const cls    = isGoal && v > 0 ? 'goal' : isNum ? 'num' : '';
+        const fmt    = typeof v === 'number' ? (Number.isInteger(v) ? v : v.toFixed(3)) : (v ?? '—');
+        return `<td class="${cls}">${fmt}</td>`;
+      }).join('')}</tr>`).join('')}</tbody>
+    </table></div>`;
+  }
+
+  // WebR's toJs() returns nested {type, names, values} objects — flatten to plain rows
+  function normaliseData(data) {
+    if (Array.isArray(data)) {
+      // Already array of plain objects
+      if (data.length && typeof data[0] === 'object' && !data[0].type) return data;
+      // WebR columnar format: [{names, values}] or single object with names/values
+      if (data.length && data[0]?.names) {
+        return transposeColumnar(data[0]);
+      }
+    }
+    if (data && data.names && data.values) return transposeColumnar(data);
+    // Flat object (single row)
+    if (data && typeof data === 'object' && !Array.isArray(data)) return [data];
+    return [];
+  }
+
+  function transposeColumnar(obj) {
+    const { names, values } = obj;
+    if (!names || !values) return [];
+    const len = values[0]?.values?.length ?? 0;
+    return Array.from({ length: len }, (_, i) => {
+      const row = {};
+      names.forEach((name, j) => {
+        const col = values[j];
+        row[name] = col?.values?.[i] ?? col?.[i] ?? null;
+      });
+      return row;
+    });
+  }
+
+  function flattenRow(arr) {
+    if (!arr.length) return {};
+    const obj = arr[0];
+    if (obj.names && obj.values) {
+      const out = {};
+      obj.names.forEach((n, i) => { out[n] = obj.values[i]?.values?.[0] ?? obj.values[i]; });
+      return out;
+    }
+    return obj;
+  }
+</script>
+</body>
+</html>

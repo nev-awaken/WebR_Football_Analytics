@@ -30,12 +30,18 @@ export async function ensurePackages(webR, packages, rootDir) {
   }
 
   for (const pkg of packages) {
-    // suppress the "masking objects" startup spam; errors still throw
     await webR.evalR(`suppressPackageStartupMessages(library(${pkg}))`);
   }
 }
 
-// Source each R file into the global environment.
+export async function loadCsvData(webR, csvPath, rVarName) {
+  const webRDir = "/home/web_user/data";
+  const webRPath = `${webRDir}/${path.basename(csvPath)}`;
+  try { await webR.FS.mkdir(webRDir); } catch {}
+  await webR.FS.writeFile(webRPath, new Uint8Array(fs.readFileSync(csvPath)));
+  await webR.evalR(`${rVarName} <- read.csv("${webRPath}", stringsAsFactors = FALSE)`);
+}
+
 export async function loadRScripts(webR, files, scriptDir) {
   for (const filename of files) {
     const localPath = path.join(scriptDir, filename);

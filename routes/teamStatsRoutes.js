@@ -1,13 +1,14 @@
 import express from 'express';
-import * as stats from '../controllers/statsController.js';
+import * as teamStats from '../controllers/teamStatsController.js';
 
 const router = express.Router();
 
+router.get("/shooting",          teamStats.teamShootingStats);
+router.get("/shooting/:team",    teamStats.playerShootingStats);
+router.get("/passing/:team",     teamStats.teamPassAccuracy);
+router.get("/top-passers/:team", teamStats.topPassers);
+router.get("/shot-map/:team",    teamStats.shotMap);
+router.get("/dribbles/:team",    teamStats.dribbleStats);
+router.get("/pressure/:team",    teamStats.pressurePerformance);
 
-router.post("/summary", stats.summaryStats);
-router.post("/t-test", stats.tTest);
-router.post("/pca", stats.pca);
-router.post("/kmeans", stats.kMeans);
-router.post("/forecast-hw", stats.hwForecast);
-
-export const statsRoutes = router;
+export const teamStatsRoutes = router;
