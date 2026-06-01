@@ -34,12 +34,21 @@ export async function ensurePackages(webR, packages, rootDir) {
   }
 }
 
-export async function loadCsvData(webR, csvPath, rVarName) {
+export async function loadRdsData(webR, rdsFiles, rootDir) {
   const webRDir = "/home/web_user/data";
-  const webRPath = `${webRDir}/${path.basename(csvPath)}`;
   try { await webR.FS.mkdir(webRDir); } catch {}
-  await webR.FS.writeFile(webRPath, new Uint8Array(fs.readFileSync(csvPath)));
-  await webR.evalR(`${rVarName} <- read.csv("${webRPath}", stringsAsFactors = FALSE)`);
+
+  for (const file of rdsFiles) {
+    const localPath = path.join(rootDir, "data", file);
+    const webRPath  = `${webRDir}/${file}`;
+    await webR.FS.writeFile(webRPath, new Uint8Array(fs.readFileSync(localPath)));
+    await webR.evalR(`
+      tmp        <- readRDS("${webRPath}")
+      match_data <- if (exists("match_data")) dplyr::bind_rows(match_data, tmp) else tmp
+      rm(tmp)
+    `);
+    console.log(`Loaded: ${file}`);
+  }
 }
 
 export async function loadRScripts(webR, files, scriptDir) {

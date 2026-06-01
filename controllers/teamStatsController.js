@@ -1,5 +1,23 @@
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 import { webR, ready } from "../webrInstance.js";
 import { ok, fail } from "../helpers/response.js";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const DATA_DIR  = path.join(__dirname, "..", "data");
+
+// Returns metadata for all available datasets (reads JSON sidecars — no R needed)
+export const getDatasets = (req, res) => {
+  try {
+    const datasets = fs.readdirSync(DATA_DIR)
+      .filter(f => /^\d+_\d+_.+\.json$/.test(f))
+      .map(f => JSON.parse(fs.readFileSync(path.join(DATA_DIR, f), "utf8")));
+    return ok(res, datasets, "datasets");
+  } catch (err) {
+    return fail(res, err.message, "datasets failed", 500);
+  }
+};
 
 // Shooting summary for every team in the dataset
 export const teamShootingStats = async (req, res) => {
@@ -69,6 +87,18 @@ export const dribbleStats = async (req, res) => {
     return ok(res, await result.toJs(), "dribble stats");
   } catch (err) {
     return fail(res, err.message, "dribble stats failed", 500);
+  }
+};
+
+// High-level performance summary for a team
+export const teamOverview = async (req, res) => {
+  try {
+    await ready;
+    await webR.objs.globalEnv.bind("team_name", req.params.team);
+    const result = await webR.evalR("team_overview(match_data, team_name)");
+    return ok(res, await result.toJs(), "team overview");
+  } catch (err) {
+    return fail(res, err.message, "team overview failed", 500);
   }
 };
 

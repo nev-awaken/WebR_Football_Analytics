@@ -1,0 +1,195 @@
+---
+title: "Soccer Analytics Dataset Generator"
+author: "Jane Doe"
+date: 2026-06-01
+format: html
+---
+
+## Soccer Analytics Dataset Generator
+
+Contains code to generate analytics dataset from StatsBomb API
+
+### Libraries Required
+```{r}
+library(dplyr)
+library(jsonlite)
+library(StatsBombR)
+```
+
+### Constants
+
+Run `FreeCompetitions()` interactively to look up IDs, then set them here
+```{r}
+COMP_ID    <- 2          # e.g. 2 = Premier League (Comp ID)
+SEASON_ID  <- 27         # e.g. 27 = 2015/2016 (Season ID)
+TEAM_NAME  <- "Manchester United"
+DATASET_DIR <- "./data"
+```
+
+
+```{r}
+# Check if the folder exists; if not, create it safely
+if (!dir.exists(DATASET_DIR)) {
+  dir.create(DATASET_DIR, recursive = TRUE)
+}
+```
+
+### Step 1 — Verify Competition + Season
+
+```{r}
+comps    <- FreeCompetitions()
+comp_row <- comps %>% filter(competition_id == COMP_ID, season_id == SEASON_ID)
+comp_row %>% select(competition_id, competition_name, season_id, season_name)
+```
+
+### Step 2 — Pull Matches for the Team
+
+```{r}
+all_matches <- FreeMatches(comp_row)
+
+matches <- all_matches %>%
+  filter(
+    home_team.home_team_name == TEAM_NAME |
+    away_team.away_team_name == TEAM_NAME
+  )
+
+cat("Matches found:", nrow(matches), "\n")
+```
+
+### Step 3 — Pull All Events
+
+```{r}
+# Library version of StatsBombFreeEvents() function fails without any clear error, so using this StatsBombFreeEvents_FIXED()
+StatsBombFreeEvents_FIXED <- function(MatchesDF = "ALL", Parallel = TRUE) {
+  print(
+    "Whilst we are keen to share data and facilitate research, we also urge you to be responsible with the data. Please credit StatsBomb as your data source when using the data and visit https://statsbomb.com/media-pack/ to obtain our logos for public use."
+  )
+
+  events.df <- tibble()
+  is_all    <- identical(MatchesDF, "ALL")
+
+  if (Parallel == TRUE) {
+    if (is_all) {
+      Matches2 <- FreeMatches(FreeCompetitions())
+      cl <- makeCluster(detectCores())
+      registerDoParallel(cl)
+      events.df <- foreach(
+        i = 1:dim(Matches2)[1],
+        .combine = bind_rows,
+        .multicombine = TRUE,
+        .errorhandling = "remove",
+        .export = c("get.matchFree"),
+        .packages = c("httr", "jsonlite", "dplyr")
+      ) %dopar% {
+        get.matchFree(Matches2[i, ])
+      }
+      stopCluster(cl)
+    } else {
+      cl <- makeCluster(detectCores())
+      registerDoParallel(cl)
+      events.df <- foreach(
+        i = 1:dim(MatchesDF)[1],
+        .combine = bind_rows,
+        .multicombine = TRUE,
+        .errorhandling = "remove",
+        .export = c("get.matchFree"),
+        .packages = c("httr", "jsonlite", "dplyr")
+      ) %dopar% {
+        get.matchFree(MatchesDF[i, ])
+      }
+      stopCluster(cl)
+    }
+  } else {
+    if (is_all) {
+      Matches2 <- FreeMatches(FreeCompetitions())
+      for (i in 1:length(Matches2$match_id)) {
+        events    <- get.matchFree(Matches2[i, ])
+        events.df <- bind_rows(events.df, events)
+      }
+    } else {
+      for (i in 1:length(MatchesDF$match_id)) {
+        events    <- get.matchFree(MatchesDF[i, ])
+        events.df <- bind_rows(events.df, events)
+      }
+    }
+  }
+
+  return(events.df)
+}
+
+events_raw <- StatsBombFreeEvents_FIXED(MatchesDF = matches, Parallel = FALSE)
+events_raw <- allclean(events_raw)
+
+cat("Total events:", nrow(events_raw), "\n")
+```
+
+### Step 4 — Merge Match Metadata into Events
+
+Adds opponent, home/away, score, and date to every event row.
+```{r}
+match_meta <- matches %>%
+  mutate(match_id = as.integer(match_id)) %>%
+  select(
+    match_id,
+    match_date,
+    season          = season.season_name,
+    match_home_team = home_team.home_team_name,
+    match_away_team = away_team.away_team_name
+  )
+
+events <- events_raw %>%
+  mutate(match_id = as.integer(match_id)) %>%
+  left_join(match_meta, by = "match_id") %>%
+  mutate(
+    opponent = if_else(team.name == match_home_team, match_away_team, match_home_team),
+    is_home  = team.name == match_home_team
+  )
+```
+
+### Step 5 — Save RDS + JSON Metadata
+
+```{r}
+team_slug <- tolower(gsub(" ", "_", TEAM_NAME))
+file_base <- paste0(COMP_ID, "_", SEASON_ID, "_", team_slug)
+rds_path  <- file.path(DATASET_DIR, paste0(file_base, ".rds"))
+json_path <- file.path(DATASET_DIR, paste0(file_base, ".json"))
+
+matches_list <- matches %>%
+  mutate(
+    opponent = if_else(home_team.home_team_name == TEAM_NAME,
+                       away_team.away_team_name,
+                       home_team.home_team_name),
+    is_home  = home_team.home_team_name == TEAM_NAME,
+    score    = paste0(home_score, "-", away_score)
+  ) %>%
+  select(match_id, match_date, opponent, is_home, score) %>%
+  arrange(match_date)
+
+metadata <- list(
+  competition_id = COMP_ID,
+  season_id      = SEASON_ID,
+  team           = TEAM_NAME,
+  season         = matches$season.season_name[[1]],
+  competition    = matches$competition.competition_name[[1]],
+  total_matches  = nrow(matches),
+  file           = paste0(file_base, ".rds"),
+  matches        = matches_list
+)
+
+events_slim <- events %>%
+  dplyr::select(
+    match_id, minute, type.name, under_pressure,
+    team.name, player.name,
+    shot.outcome.name, shot.statsbomb_xg,
+    shot.body_part.name, shot.technique.name, shot.type.name,
+    location.x, location.y,
+    pass.outcome.name, pass.length, pass.shot_assist, pass.goal_assist,
+    dribble.outcome.name,
+    match_date, season, match_home_team, match_away_team, opponent, is_home
+  )
+
+saveRDS(events_slim, rds_path)
+write_json(metadata, json_path, pretty = TRUE, auto_unbox = TRUE)
+
+cat("Saved:\n", rds_path, "\n", json_path, "\n")
+```
