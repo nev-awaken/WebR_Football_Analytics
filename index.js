@@ -8,6 +8,8 @@ import { startMonitor } from './helpers/monitor.js';
 
 const app  = express();
 const port = process.env.PORT || 3000;
+i
+app.set('trust proxy', 1);
 
 const limiter = rateLimit({
   windowMs: 60 * 1000,
