@@ -1,4 +1,4 @@
-# Football Analytics — WebR + Express
+# Football Analytics: WebR + Express
 
 R's statistical power inside a Node.js/Express backend — **no R installation required**. R runs as WebAssembly via [`webr`](https://docs.r-wasm.org/webr/latest/). Data is sourced from the [StatsBomb Open Data](https://github.com/statsbomb/open-data) API.
 
@@ -26,7 +26,7 @@ npm install
 
 ## Generating a Dataset
 
-Datasets are generated using `r/dataset_generator.qmd` 
+Datasets are generated using `r/dataset_generator.qmd`
 
 **1. Find your competition and season IDs**
 
@@ -72,17 +72,20 @@ Open [http://localhost:3000](http://localhost:3000) in browser. Select a team fr
 
 All endpoints are under `/team-stats`.
 
-| Method | Endpoint                          | Description                                                    |
-| ------ | --------------------------------- | -------------------------------------------------------------- |
-| GET    | `/team-stats/datasets`          | All available datasets (reads JSON metadata, no R)             |
-| GET    | `/team-stats/overview/:team`    | High-level dashboard — shooting, passing, dribbling, pressure |
-| GET    | `/team-stats/shooting`          | Shooting summary for all teams in the loaded data              |
-| GET    | `/team-stats/shooting/:team`    | Player shooting breakdown for a team                           |
-| GET    | `/team-stats/passing/:team`     | Pass accuracy summary                                          |
-| GET    | `/team-stats/top-passers/:team` | Top 10 passers by volume                                       |
-| GET    | `/team-stats/shot-map/:team`    | Shot locations + xG (pitch map data)                           |
-| GET    | `/team-stats/dribbles/:team`    | Dribble success rate by player                                 |
-| GET    | `/team-stats/pressure/:team`    | Actions performed under pressure by type                       |
+| Method | Endpoint                          | Description                                                                                                           |
+| ------ | --------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| GET    | `/team-stats/datasets`          | All available datasets — reads JSON metadata, no R involved                                                          |
+| GET    | `/team-stats/overview`          | **Multi-team comparison** — sortable table across all loaded datasets (shooting, passing, dribbling, pressure) |
+| GET    | `/team-stats/overview/:team`    | Single team overview — stat cards by category                                                                        |
+| GET    | `/team-stats/shooting`          | Shooting summary grouped by all teams in the data                                                                     |
+| GET    | `/team-stats/shooting/:team`    | Player shooting breakdown for a specific team                                                                         |
+| GET    | `/team-stats/passing/:team`     | Pass accuracy summary                                                                                                 |
+| GET    | `/team-stats/top-passers/:team` | Top 10 passers by volume                                                                                              |
+| GET    | `/team-stats/shot-map/:team`    | SVG pitch shot map — locations, xG, outcomes, filterable by result                                                   |
+| GET    | `/team-stats/dribbles/:team`    | Dribble success rate by player                                                                                        |
+| GET    | `/team-stats/pressure/:team`    | Actions performed under pressure by type                                                                              |
+
+> **Note:** The comparison endpoint (`/overview`) only includes teams with a fully generated dataset. Opponent teams that appear partially in the data are excluded automatically.
 
 ---
 
