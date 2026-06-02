@@ -1,11 +1,22 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import { webR, ready } from "../webRInstance.js";
+import { webR, ready, datasetMap } from "../webRInstance.js";
 import { ok, fail } from "../helpers/response.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DATA_DIR  = path.join(__dirname, "..", "data");
+const DATA_WEBR = "/home/web_user/data";
+
+function rdsPath(file) {
+  return `${DATA_WEBR}/${file}`;
+}
+
+function allFilesExpr() {
+  return Object.values(datasetMap)
+    .map(f => `readRDS("${rdsPath(f)}")`)
+    .join(", ");
+}
 
 // Returns metadata for all available datasets (reads JSON sidecars — no R needed)
 export const getDatasets = (req, res) => {
@@ -24,8 +35,11 @@ export const teamShootingStats = async (req, res) => {
   const shelter = await new webR.Shelter();
   try {
     await ready;
-    const result = await shelter.evalR("team_shooting_stats(match_data)");
-    const data   = await result.toJs();
+    const result = await shelter.evalR(`
+      tmp <- dplyr::bind_rows(${allFilesExpr()})
+      team_shooting_stats(tmp)
+    `);
+    const data = await result.toJs();
     return ok(res, data, "team shooting stats");
   } catch (err) {
     return fail(res, err.message, "team shooting stats failed", 500);
@@ -39,8 +53,13 @@ export const playerShootingStats = async (req, res) => {
   const shelter = await new webR.Shelter();
   try {
     await ready;
-    const result = await shelter.evalR(`player_shooting_stats(match_data, ${JSON.stringify(req.params.team)})`);
-    const data   = await result.toJs();
+    const file = datasetMap[req.params.team];
+    if (!file) return fail(res, null, "team not found", 404);
+    const result = await shelter.evalR(`
+      tmp <- readRDS("${rdsPath(file)}")
+      player_shooting_stats(tmp, ${JSON.stringify(req.params.team)})
+    `);
+    const data = await result.toJs();
     return ok(res, data, "player shooting stats");
   } catch (err) {
     return fail(res, err.message, "player shooting stats failed", 500);
@@ -54,8 +73,13 @@ export const teamPassAccuracy = async (req, res) => {
   const shelter = await new webR.Shelter();
   try {
     await ready;
-    const result = await shelter.evalR(`pass_accuracy(match_data, ${JSON.stringify(req.params.team)})`);
-    const data   = await result.toJs();
+    const file = datasetMap[req.params.team];
+    if (!file) return fail(res, null, "team not found", 404);
+    const result = await shelter.evalR(`
+      tmp <- readRDS("${rdsPath(file)}")
+      pass_accuracy(tmp, ${JSON.stringify(req.params.team)})
+    `);
+    const data = await result.toJs();
     return ok(res, data, "pass accuracy");
   } catch (err) {
     return fail(res, err.message, "pass accuracy failed", 500);
@@ -69,8 +93,13 @@ export const topPassers = async (req, res) => {
   const shelter = await new webR.Shelter();
   try {
     await ready;
-    const result = await shelter.evalR(`top_passers(match_data, ${JSON.stringify(req.params.team)})`);
-    const data   = await result.toJs();
+    const file = datasetMap[req.params.team];
+    if (!file) return fail(res, null, "team not found", 404);
+    const result = await shelter.evalR(`
+      tmp <- readRDS("${rdsPath(file)}")
+      top_passers(tmp, ${JSON.stringify(req.params.team)})
+    `);
+    const data = await result.toJs();
     return ok(res, data, "top passers");
   } catch (err) {
     return fail(res, err.message, "top passers failed", 500);
@@ -84,8 +113,13 @@ export const shotMap = async (req, res) => {
   const shelter = await new webR.Shelter();
   try {
     await ready;
-    const result = await shelter.evalR(`shot_map(match_data, ${JSON.stringify(req.params.team)})`);
-    const data   = await result.toJs();
+    const file = datasetMap[req.params.team];
+    if (!file) return fail(res, null, "team not found", 404);
+    const result = await shelter.evalR(`
+      tmp <- readRDS("${rdsPath(file)}")
+      shot_map(tmp, ${JSON.stringify(req.params.team)})
+    `);
+    const data = await result.toJs();
     return ok(res, data, "shot map");
   } catch (err) {
     return fail(res, err.message, "shot map failed", 500);
@@ -99,8 +133,13 @@ export const dribbleStats = async (req, res) => {
   const shelter = await new webR.Shelter();
   try {
     await ready;
-    const result = await shelter.evalR(`dribble_stats(match_data, ${JSON.stringify(req.params.team)})`);
-    const data   = await result.toJs();
+    const file = datasetMap[req.params.team];
+    if (!file) return fail(res, null, "team not found", 404);
+    const result = await shelter.evalR(`
+      tmp <- readRDS("${rdsPath(file)}")
+      dribble_stats(tmp, ${JSON.stringify(req.params.team)})
+    `);
+    const data = await result.toJs();
     return ok(res, data, "dribble stats");
   } catch (err) {
     return fail(res, err.message, "dribble stats failed", 500);
@@ -114,8 +153,11 @@ export const allTeamsOverview = async (req, res) => {
   const shelter = await new webR.Shelter();
   try {
     await ready;
-    const result = await shelter.evalR("all_teams_overview(match_data)");
-    const data   = await result.toJs();
+    const result = await shelter.evalR(`
+      tmp <- dplyr::bind_rows(${allFilesExpr()})
+      all_teams_overview(tmp)
+    `);
+    const data = await result.toJs();
     return ok(res, data, "all teams overview");
   } catch (err) {
     return fail(res, err.message, "all teams overview failed", 500);
@@ -129,8 +171,13 @@ export const teamOverview = async (req, res) => {
   const shelter = await new webR.Shelter();
   try {
     await ready;
-    const result = await shelter.evalR(`team_overview(match_data, ${JSON.stringify(req.params.team)})`);
-    const data   = await result.toJs();
+    const file = datasetMap[req.params.team];
+    if (!file) return fail(res, null, "team not found", 404);
+    const result = await shelter.evalR(`
+      tmp <- readRDS("${rdsPath(file)}")
+      team_overview(tmp, ${JSON.stringify(req.params.team)})
+    `);
+    const data = await result.toJs();
     return ok(res, data, "team overview");
   } catch (err) {
     return fail(res, err.message, "team overview failed", 500);
@@ -144,8 +191,13 @@ export const pressurePerformance = async (req, res) => {
   const shelter = await new webR.Shelter();
   try {
     await ready;
-    const result = await shelter.evalR(`pressure_performance(match_data, ${JSON.stringify(req.params.team)})`);
-    const data   = await result.toJs();
+    const file = datasetMap[req.params.team];
+    if (!file) return fail(res, null, "team not found", 404);
+    const result = await shelter.evalR(`
+      tmp <- readRDS("${rdsPath(file)}")
+      pressure_performance(tmp, ${JSON.stringify(req.params.team)})
+    `);
+    const data = await result.toJs();
     return ok(res, data, "pressure performance");
   } catch (err) {
     return fail(res, err.message, "pressure performance failed", 500);

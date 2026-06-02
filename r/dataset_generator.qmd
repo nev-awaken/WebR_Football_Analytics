@@ -22,7 +22,7 @@ Run `FreeCompetitions()` interactively to look up IDs, then set them here
 ```{r}
 COMP_ID    <- 2          # e.g. 2 = Premier League (Comp ID)
 SEASON_ID  <- 27         # e.g. 27 = 2015/2016 (Season ID)
-TEAM_NAME  <- "Manchester City"
+TEAM_NAME  <- "Aston Villa"
 DATASET_DIR <- "./data"
 ```
 
@@ -176,19 +176,25 @@ metadata <- list(
   matches        = matches_list
 )
 
+factor_cols <- c(
+  "type.name", "team.name", "player.name",
+  "shot.outcome.name", "shot.body_part.name", "shot.technique.name", "shot.type.name",
+  "pass.outcome.name", "dribble.outcome.name"
+)
+
 events_slim <- events %>%
   dplyr::select(
-    match_id, minute, type.name, under_pressure,
+    minute, type.name, under_pressure,
     team.name, player.name,
     shot.outcome.name, shot.statsbomb_xg,
     shot.body_part.name, shot.technique.name, shot.type.name,
     location.x, location.y,
     pass.outcome.name, pass.length, pass.shot_assist, pass.goal_assist,
-    dribble.outcome.name,
-    match_date, season, match_home_team, match_away_team, opponent, is_home
-  )
+    dribble.outcome.name
+  ) %>%
+  dplyr::mutate(dplyr::across(dplyr::all_of(factor_cols), as.factor))
 
-saveRDS(events_slim, rds_path)
+saveRDS(events_slim, rds_path, compress = "xz")
 write_json(metadata, json_path, pretty = TRUE, auto_unbox = TRUE)
 
 cat("Saved:\n", rds_path, "\n", json_path, "\n")

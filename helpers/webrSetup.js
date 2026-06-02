@@ -34,32 +34,11 @@ export async function ensurePackages(webR, packages, rootDir) {
   }
 }
 
-export async function loadRdsData(webR, rdsFiles, rootDir) {
+export async function mountDataDir(webR, rootDir) {
   const webRDir  = "/home/web_user/data";
   const dataHost = path.join(rootDir, "data");
   await webR.FS.mkdir(webRDir);
-  // Mount the host data dir directly — no file bytes copied into the WASM heap
   await webR.FS.mount("NODEFS", { root: dataHost }, webRDir);
-
-  await webR.evalRVoid('dataset_teams <- character(0)');
-
-  for (const file of rdsFiles) {
-    const webRPath = `${webRDir}/${file}`;
-    const jsonPath = path.join(rootDir, "data", file.replace(".rds", ".json"));
-
-    await webR.evalRVoid(`
-      tmp        <- readRDS("${webRPath}")
-      match_data <- if (exists("match_data")) dplyr::bind_rows(match_data, tmp) else tmp
-      rm(tmp)
-    `);
-
-    if (fs.existsSync(jsonPath)) {
-      const team = JSON.parse(fs.readFileSync(jsonPath, "utf8")).team.replace(/"/g, '\\"');
-      await webR.evalRVoid(`dataset_teams <- c(dataset_teams, "${team}")`);
-    }
-
-    console.log(`Loaded: ${file}`);
-  }
 }
 
 export async function loadRScripts(webR, files, scriptDir) {
