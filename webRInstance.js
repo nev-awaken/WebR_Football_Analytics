@@ -31,7 +31,8 @@ export const datasetMap = Object.fromEntries(
 );
 
 const RECYCLE_COOLDOWN_MS  = 5 * 60 * 1000;
-const RECYCLE_HEADROOM_MB  = parseInt(process.env.RECYCLE_HEADROOM_MB || '400');
+const RECYCLE_HEADROOM_MB    = parseInt(process.env.RECYCLE_HEADROOM_MB || '400');
+const RECYCLE_THRESHOLD_HARD = process.env.RECYCLE_THRESHOLD_MB ? parseInt(process.env.RECYCLE_THRESHOLD_MB) : null;
 
 // Mutable instance state
 let _webR              = null;
@@ -72,8 +73,9 @@ async function initWebR() {
 _ready = (async () => {
   _webR = await initWebR();
   const baselineMB = process.memoryUsage().rss / 1e6;
-  _recycleThresholdMB = baselineMB + RECYCLE_HEADROOM_MB;
-  console.log(`[recycle] threshold set to ${_recycleThresholdMB.toFixed(0)}MB (baseline ${baselineMB.toFixed(0)}MB + ${RECYCLE_HEADROOM_MB}MB headroom)`);
+  _recycleThresholdMB = RECYCLE_THRESHOLD_HARD ?? (baselineMB + RECYCLE_HEADROOM_MB);
+  const thresholdSource = RECYCLE_THRESHOLD_HARD ? 'fixed override' : `baseline ${baselineMB.toFixed(0)}MB + ${RECYCLE_HEADROOM_MB}MB headroom`;
+  console.log(`[recycle] threshold set to ${_recycleThresholdMB.toFixed(0)}MB (${thresholdSource})`);
 })();
 
 // Acquire the current webR instance for a request.
@@ -121,10 +123,10 @@ export async function recycleWebR() {
   _ready = Promise.resolve();
 
   const newBaselineMB = process.memoryUsage().rss / 1e6;
-  _recycleThresholdMB = newBaselineMB + RECYCLE_HEADROOM_MB;
+  _recycleThresholdMB = RECYCLE_THRESHOLD_HARD ?? (newBaselineMB + RECYCLE_HEADROOM_MB);
   _recycling = false;
 
-  console.log(`[recycle] complete in ${((Date.now() - start) / 1000).toFixed(1)}s — new threshold ${_recycleThresholdMB.toFixed(0)}MB (baseline ${newBaselineMB.toFixed(0)}MB)`);
+  console.log(`[recycle] complete in ${((Date.now() - start) / 1000).toFixed(1)}s — new threshold ${_recycleThresholdMB.toFixed(0)}MB`);
 
   // Open gate — queued requests proceed with new instance
   openGate();
