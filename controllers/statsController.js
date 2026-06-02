@@ -1,28 +1,35 @@
-import { webR } from "../webRInstance.js";
+import { acquireWebR, releaseWebR } from "../webRInstance.js";
 import { ok, fail } from "../helpers/response.js";
 
 export const summaryStats = async (req, res) => {
+  const webR = await acquireWebR();
   try {
     await webR.objs.globalEnv.bind("x", req.body.values);
     const result = await webR.evalR("summary_stats(x)");
-    return ok(res, await result.toJs(), "summary computed")
+    return ok(res, await result.toJs(), "summary computed");
   } catch {
-    return fail(res, "summary_stats failed", 500);
+    return fail(res, null, "summary_stats failed", 500);
+  } finally {
+    releaseWebR();
   }
 };
 
 export const tTest = async (req, res) => {
+  const webR = await acquireWebR();
   try {
     await webR.objs.globalEnv.bind("x", req.body.x);
     await webR.objs.globalEnv.bind("y", req.body.y);
     const result = await webR.evalR("run_t_test(x, y)");
     return ok(res, { p_value: await result.toNumber() }, "t-test computed");
   } catch {
-    return fail(res, "t-test failed", 500);
+    return fail(res, null, "t-test failed", 500);
+  } finally {
+    releaseWebR();
   }
 };
 
 export const pca = async (req, res) => {
+  const webR = await acquireWebR();
   try {
     await webR.objs.globalEnv.bind("data_matrix", req.body.data);
     const result = await webR.evalR("run_pca(data_matrix)");
@@ -30,10 +37,13 @@ export const pca = async (req, res) => {
   } catch (err) {
     console.error("PCA failed:", err);
     res.status(500).json({ error: "PCA failed" });
+  } finally {
+    releaseWebR();
   }
 };
 
 export const kMeans = async (req, res) => {
+  const webR = await acquireWebR();
   try {
     const { data, k } = req.body;
     await webR.objs.globalEnv.bind("data_matrix", data);
@@ -43,10 +53,13 @@ export const kMeans = async (req, res) => {
   } catch (err) {
     console.error("K-Means failed:", err);
     res.status(500).json({ error: "k-means failed" });
+  } finally {
+    releaseWebR();
   }
 };
 
 export const hwForecast = async (req, res) => {
+  const webR = await acquireWebR();
   try {
     const { values, horizon } = req.body;
     await webR.objs.globalEnv.bind("ts_values", values);
@@ -56,17 +69,20 @@ export const hwForecast = async (req, res) => {
   } catch (err) {
     console.error("HW Forecast failed:", err);
     res.status(500).json({ error: "Forecasting failed" });
+  } finally {
+    releaseWebR();
   }
 };
 
-
 export async function testDplyr(req, res) {
+  const webR = await acquireWebR();
   try {
     const { values } = req.body;
     const result = await webR.evalR(`test_dplyr(c(${values.join(",")}))`);
-    const output = await result.toJs();
-    res.json(output);
+    res.json(await result.toJs());
   } catch (err) {
     res.status(500).json({ error: err.message });
+  } finally {
+    releaseWebR();
   }
 }

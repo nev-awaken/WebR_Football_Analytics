@@ -11,9 +11,12 @@ export function logStage(label) {
   console.log(`[mem] ${label.padEnd(16)} ${(rss / 1e6).toFixed(0)}MB`);
 }
 
-export function startMonitor() {
-  logMemory(); // To log immediately on first call
-  setInterval(logMemory, INTERVAL_MS);
+export function startMonitor(onMemoryThreshold) {
+  logMemory();
+  setInterval(() => {
+    logMemory();
+    if (onMemoryThreshold) onMemoryThreshold();
+  }, INTERVAL_MS);
 
   process.on('uncaughtException', (err) => {
     console.error('[uncaughtException]', err.message);

@@ -5,6 +5,7 @@ import { statsRoutes } from './routes/statsRoutes.js';
 import { pingRoutes } from './routes/pingRoutes.js';
 import { teamStatsRoutes } from './routes/teamStatsRoutes.js';
 import { startMonitor } from './helpers/monitor.js';
+import { recycleWebR } from './webRInstance.js';
 
 const app  = express();
 const port = process.env.PORT || 3000;
@@ -37,4 +38,4 @@ app.listen(port, () => {
   console.log(`Listening on http://localhost:${port}`);
 });
 
-startMonitor();
+startMonitor(recycleWebR);

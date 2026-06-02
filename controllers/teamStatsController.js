@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import { webR, ready, datasetMap } from "../webRInstance.js";
+import { acquireWebR, releaseWebR, datasetMap } from "../webRInstance.js";
 import { ok, fail } from "../helpers/response.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -30,178 +30,169 @@ export const getDatasets = (req, res) => {
   }
 };
 
-// Shooting summary for every team in the dataset
 export const teamShootingStats = async (req, res) => {
+  const webR = await acquireWebR();
   const shelter = await new webR.Shelter();
   try {
-    await ready;
     const result = await shelter.evalR(`
       tmp <- dplyr::bind_rows(${allFilesExpr()})
       team_shooting_stats(tmp)
     `);
-    const data = await result.toJs();
-    return ok(res, data, "team shooting stats");
+    return ok(res, await result.toJs(), "team shooting stats");
   } catch (err) {
     return fail(res, err.message, "team shooting stats failed", 500);
   } finally {
     await shelter.purge();
+    releaseWebR();
   }
 };
 
-// Shooting breakdown by player for a single team  (:team in URL)
 export const playerShootingStats = async (req, res) => {
+  const webR = await acquireWebR();
   const shelter = await new webR.Shelter();
   try {
-    await ready;
     const file = datasetMap[req.params.team];
     if (!file) return fail(res, null, "team not found", 404);
     const result = await shelter.evalR(`
       tmp <- readRDS("${rdsPath(file)}")
       player_shooting_stats(tmp, ${JSON.stringify(req.params.team)})
     `);
-    const data = await result.toJs();
-    return ok(res, data, "player shooting stats");
+    return ok(res, await result.toJs(), "player shooting stats");
   } catch (err) {
     return fail(res, err.message, "player shooting stats failed", 500);
   } finally {
     await shelter.purge();
+    releaseWebR();
   }
 };
 
-// Pass accuracy summary for a team
 export const teamPassAccuracy = async (req, res) => {
+  const webR = await acquireWebR();
   const shelter = await new webR.Shelter();
   try {
-    await ready;
     const file = datasetMap[req.params.team];
     if (!file) return fail(res, null, "team not found", 404);
     const result = await shelter.evalR(`
       tmp <- readRDS("${rdsPath(file)}")
       pass_accuracy(tmp, ${JSON.stringify(req.params.team)})
     `);
-    const data = await result.toJs();
-    return ok(res, data, "pass accuracy");
+    return ok(res, await result.toJs(), "pass accuracy");
   } catch (err) {
     return fail(res, err.message, "pass accuracy failed", 500);
   } finally {
     await shelter.purge();
+    releaseWebR();
   }
 };
 
-// Top 10 passers by volume for a team
 export const topPassers = async (req, res) => {
+  const webR = await acquireWebR();
   const shelter = await new webR.Shelter();
   try {
-    await ready;
     const file = datasetMap[req.params.team];
     if (!file) return fail(res, null, "team not found", 404);
     const result = await shelter.evalR(`
       tmp <- readRDS("${rdsPath(file)}")
       top_passers(tmp, ${JSON.stringify(req.params.team)})
     `);
-    const data = await result.toJs();
-    return ok(res, data, "top passers");
+    return ok(res, await result.toJs(), "top passers");
   } catch (err) {
     return fail(res, err.message, "top passers failed", 500);
   } finally {
     await shelter.purge();
+    releaseWebR();
   }
 };
 
-// Shot locations + xG for pitch map visualisation
 export const shotMap = async (req, res) => {
+  const webR = await acquireWebR();
   const shelter = await new webR.Shelter();
   try {
-    await ready;
     const file = datasetMap[req.params.team];
     if (!file) return fail(res, null, "team not found", 404);
     const result = await shelter.evalR(`
       tmp <- readRDS("${rdsPath(file)}")
       shot_map(tmp, ${JSON.stringify(req.params.team)})
     `);
-    const data = await result.toJs();
-    return ok(res, data, "shot map");
+    return ok(res, await result.toJs(), "shot map");
   } catch (err) {
     return fail(res, err.message, "shot map failed", 500);
   } finally {
     await shelter.purge();
+    releaseWebR();
   }
 };
 
-// Dribble success rate by player for a team
 export const dribbleStats = async (req, res) => {
+  const webR = await acquireWebR();
   const shelter = await new webR.Shelter();
   try {
-    await ready;
     const file = datasetMap[req.params.team];
     if (!file) return fail(res, null, "team not found", 404);
     const result = await shelter.evalR(`
       tmp <- readRDS("${rdsPath(file)}")
       dribble_stats(tmp, ${JSON.stringify(req.params.team)})
     `);
-    const data = await result.toJs();
-    return ok(res, data, "dribble stats");
+    return ok(res, await result.toJs(), "dribble stats");
   } catch (err) {
     return fail(res, err.message, "dribble stats failed", 500);
   } finally {
     await shelter.purge();
+    releaseWebR();
   }
 };
 
-// Multi-team comparison — only full-season datasets, no partial opponent data
 export const allTeamsOverview = async (req, res) => {
+  const webR = await acquireWebR();
   const shelter = await new webR.Shelter();
   try {
-    await ready;
     const result = await shelter.evalR(`
       tmp <- dplyr::bind_rows(${allFilesExpr()})
       all_teams_overview(tmp)
     `);
-    const data = await result.toJs();
-    return ok(res, data, "all teams overview");
+    return ok(res, await result.toJs(), "all teams overview");
   } catch (err) {
     return fail(res, err.message, "all teams overview failed", 500);
   } finally {
     await shelter.purge();
+    releaseWebR();
   }
 };
 
-// High-level performance summary for a team
 export const teamOverview = async (req, res) => {
+  const webR = await acquireWebR();
   const shelter = await new webR.Shelter();
   try {
-    await ready;
     const file = datasetMap[req.params.team];
     if (!file) return fail(res, null, "team not found", 404);
     const result = await shelter.evalR(`
       tmp <- readRDS("${rdsPath(file)}")
       team_overview(tmp, ${JSON.stringify(req.params.team)})
     `);
-    const data = await result.toJs();
-    return ok(res, data, "team overview");
+    return ok(res, await result.toJs(), "team overview");
   } catch (err) {
     return fail(res, err.message, "team overview failed", 500);
   } finally {
     await shelter.purge();
+    releaseWebR();
   }
 };
 
-// How often each action type is performed under pressure for a team
 export const pressurePerformance = async (req, res) => {
+  const webR = await acquireWebR();
   const shelter = await new webR.Shelter();
   try {
-    await ready;
     const file = datasetMap[req.params.team];
     if (!file) return fail(res, null, "team not found", 404);
     const result = await shelter.evalR(`
       tmp <- readRDS("${rdsPath(file)}")
       pressure_performance(tmp, ${JSON.stringify(req.params.team)})
     `);
-    const data = await result.toJs();
-    return ok(res, data, "pressure performance");
+    return ok(res, await result.toJs(), "pressure performance");
   } catch (err) {
     return fail(res, err.message, "pressure performance failed", 500);
   } finally {
     await shelter.purge();
+    releaseWebR();
   }
 };
