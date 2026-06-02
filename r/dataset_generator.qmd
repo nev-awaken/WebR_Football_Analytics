@@ -176,12 +176,6 @@ metadata <- list(
   matches        = matches_list
 )
 
-factor_cols <- c(
-  "type.name", "team.name", "player.name",
-  "shot.outcome.name", "shot.body_part.name", "shot.technique.name", "shot.type.name",
-  "pass.outcome.name", "dribble.outcome.name"
-)
-
 events_slim <- events %>%
   dplyr::select(
     minute, type.name, under_pressure,
@@ -191,8 +185,7 @@ events_slim <- events %>%
     location.x, location.y,
     pass.outcome.name, pass.length, pass.shot_assist, pass.goal_assist,
     dribble.outcome.name
-  ) %>%
-  dplyr::mutate(dplyr::across(dplyr::all_of(factor_cols), as.factor))
+  )
 
 saveRDS(events_slim, rds_path, compress = "xz")
 write_json(metadata, json_path, pretty = TRUE, auto_unbox = TRUE)

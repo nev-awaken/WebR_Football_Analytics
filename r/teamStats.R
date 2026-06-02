@@ -1,3 +1,5 @@
+defactorise <- function(df) dplyr::mutate(df, dplyr::across(where(is.factor), as.character))
+
 ACTION_TYPE <- list(
     "PASS"    = "Pass",
     "CARRY"   = "Carry",
@@ -27,7 +29,8 @@ team_shooting_stats <- function(data) {
       conversion_rate    = round(total_goals / total_shots * 100, 1),
       xg_overperformance = round(total_goals - total_xg, 3)
     ) %>%
-    arrange(desc(total_xg))
+    arrange(desc(total_xg)) %>%
+    defactorise()
 }
 
 # Shooting breakdown by player for a specific team
@@ -42,7 +45,8 @@ player_shooting_stats <- function(data, team_name) {
       avg_xg_per_shot    = round(mean(shot.statsbomb_xg, na.rm = TRUE), 3),
       xg_overperformance = round(goals - xg, 3)
     ) %>%
-    arrange(desc(xg))
+    arrange(desc(xg)) %>%
+    defactorise()
 }
 
 # Pass accuracy summary for a team
@@ -72,7 +76,8 @@ top_passers <- function(data, team_name, n = 10) {
       key_passes   = sum(pass.shot_assist == TRUE | pass.goal_assist == TRUE, na.rm = TRUE)
     ) %>%
     arrange(desc(passes)) %>%
-    head(n)
+    head(n) %>%
+    defactorise()
 }
 
 # Shot locations + xG for a team (for front-end pitch map visualisation)
@@ -91,7 +96,8 @@ shot_map <- function(data, team_name) {
       is_goal,
       x            = location.x,
       y            = location.y
-    )
+    ) %>%
+    defactorise()
 }
 
 # Dribble success rate by player for a team
@@ -104,7 +110,8 @@ dribble_stats <- function(data, team_name) {
       completed   = sum(dribble.outcome.name == DRIBBLE_OUTCOME$COMPLETE, na.rm = TRUE),
       success_pct = round(completed / attempts * 100, 1)
     ) %>%
-    arrange(desc(attempts))
+    arrange(desc(attempts)) %>%
+    defactorise()
 }
 
 # Breakdown of how often each action type is performed under pressure
@@ -117,7 +124,8 @@ pressure_performance <- function(data, team_name) {
       under_pressure_count = sum(under_pressure == TRUE, na.rm = TRUE),
       pressure_pct         = round(under_pressure_count / total * 100, 1)
     ) %>%
-    arrange(desc(pressure_pct))
+    arrange(desc(pressure_pct)) %>%
+    defactorise()
 }
 
 # Multi-team comparison — only includes teams with a full generated dataset
@@ -136,7 +144,8 @@ all_teams_overview <- function(data) {
       dribble_success    = round(sum(type.name == ACTION_TYPE$DRIBBLE & dribble.outcome.name == DRIBBLE_OUTCOME$COMPLETE, na.rm = TRUE) / pmax(sum(type.name == ACTION_TYPE$DRIBBLE), 1) * 100, 1),
       pressure_pct       = round(sum(under_pressure == TRUE, na.rm = TRUE) / n() * 100, 1)
     ) %>%
-    arrange(desc(total_xg))
+    arrange(desc(total_xg)) %>%
+    defactorise()
 }
 
 # High-level performance summary for a single team
