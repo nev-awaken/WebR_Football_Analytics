@@ -4,3 +4,4 @@ node_modules/
 start.bat
 loadtest.js
 testResult.txt
+testing/

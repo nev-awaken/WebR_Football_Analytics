@@ -1,11 +1,19 @@
 const INTERVAL_MS = 2 * 60 * 1000;
 
+function logMemory() {
+  const { rss, heapUsed } = process.memoryUsage();
+  const ts = new Date().toISOString().replace('T', ' ').slice(0, 19) + ' UTC';
+  console.log(`[mem] ${ts}  rss=${(rss / 1e6).toFixed(0)}MB  heap=${(heapUsed / 1e6).toFixed(0)}MB`);
+}
+
+export function logStage(label) {
+  const { rss } = process.memoryUsage();
+  console.log(`[mem] ${label.padEnd(16)} ${(rss / 1e6).toFixed(0)}MB`);
+}
+
 export function startMonitor() {
-  setInterval(() => {
-    const { rss, heapUsed } = process.memoryUsage();
-    const ts = new Date().toISOString().replace('T', ' ').slice(0, 19) + ' UTC';
-    console.log(`[mem] ${ts}  rss=${(rss / 1e6).toFixed(0)}MB  heap=${(heapUsed / 1e6).toFixed(0)}MB`);
-  }, INTERVAL_MS);
+  logMemory(); // To log immediately on first call
+  setInterval(logMemory, INTERVAL_MS);
 
   process.on('uncaughtException', (err) => {
     console.error('[uncaughtException]', err.message);

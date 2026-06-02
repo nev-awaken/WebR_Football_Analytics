@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Football Analytics Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js" defer></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -431,7 +432,9 @@
   const main       = document.getElementById('main');
   const teamSelect = document.getElementById('teamSelect');
   const headerMeta = document.getElementById('headerMeta');
-  let activeBtn = null;
+  let activeBtn    = null;
+  let activeChart  = null;
+  let pendingChart = null;
 
   // Populate team selector from available datasets
   async function loadDatasets() {
@@ -533,6 +536,8 @@
       body = renderTable(json.data);
     }
 
+    if (activeChart) { activeChart.destroy(); activeChart = null; }
+
     main.innerHTML = `
       <div class="result-header">
         <h2>${label}</h2>
@@ -541,6 +546,8 @@
       </div>
       <div class="result-meta">Returned in <span>${ms}ms</span> · ${new Date().toLocaleTimeString()}</div>
       ${body}`;
+
+    if (pendingChart) { activeChart = initOverviewChart(pendingChart); pendingChart = null; }
   }
 
   function renderOverview(data) {
@@ -665,7 +672,18 @@
       return `<td class="${c.num ? 'num' : ''} ${isTop ? 'goal' : ''}">${display}</td>`;
     }).join('')}</tr>`).join('');
 
+    pendingChart = {
+      teams:    rows.map(r => r['team.name']),
+      goals:    rows.map(r => parseFloat(r.goals)    || 0),
+      xg:       rows.map(r => parseFloat(r.total_xg) || 0),
+      passAcc:  rows.map(r => parseFloat(r.pass_accuracy)   || 0),
+      dribble:  rows.map(r => parseFloat(r.dribble_success) || 0),
+    };
+
     return `
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:18px 20px;margin-bottom:20px">
+        <canvas id="overview-chart" height="110"></canvas>
+      </div>
       <p style="font-size:12px;color:var(--muted);margin-bottom:12px">
         Click any column header to sort · Green = best in category
       </p>
@@ -832,6 +850,34 @@
         row[name] = col?.values?.[i] ?? col?.[i] ?? null;
       });
       return row;
+    });
+  }
+
+  function initOverviewChart({ teams, goals, xg, passAcc, dribble }) {
+    const ctx = document.getElementById('overview-chart');
+    if (!ctx) return null;
+    return new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: teams,
+        datasets: [
+          { label: 'Goals',         data: goals,   backgroundColor: '#3fb950' },
+          { label: 'xG',            data: xg,      backgroundColor: '#d2992280', borderColor: '#d29922', borderWidth: 1 },
+          { label: 'Pass Acc %',    data: passAcc, backgroundColor: '#58a6ff80', borderColor: '#58a6ff', borderWidth: 1 },
+          { label: 'Dribble Succ %',data: dribble, backgroundColor: '#8957e580', borderColor: '#8957e5', borderWidth: 1 },
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+          legend: { labels: { color: '#8b949e', boxWidth: 12, font: { size: 11 } } }
+        },
+        scales: {
+          x: { ticks: { color: '#8b949e', font: { size: 11 } }, grid: { color: '#30363d' } },
+          y: { ticks: { color: '#8b949e', font: { size: 11 } }, grid: { color: '#30363d' } }
+        }
+      }
     });
   }
 
