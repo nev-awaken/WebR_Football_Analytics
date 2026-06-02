@@ -31,7 +31,7 @@ export const datasetMap = Object.fromEntries(
 );
 
 const RECYCLE_COOLDOWN_MS  = 5 * 60 * 1000;
-const RECYCLE_HEADROOM_MB  = parseInt(process.env.RECYCLE_HEADROOM_MB || '200');
+const RECYCLE_HEADROOM_MB  = parseInt(process.env.RECYCLE_HEADROOM_MB || '400');
 
 // Mutable instance state
 let _webR              = null;
@@ -117,11 +117,14 @@ export async function recycleWebR() {
   logStage("post-close");
 
   const start = Date.now();
-  _webR   = await initWebR();
-  _ready  = Promise.resolve();
+  _webR  = await initWebR();
+  _ready = Promise.resolve();
+
+  const newBaselineMB = process.memoryUsage().rss / 1e6;
+  _recycleThresholdMB = newBaselineMB + RECYCLE_HEADROOM_MB;
   _recycling = false;
 
-  console.log(`[recycle] complete in ${((Date.now() - start) / 1000).toFixed(1)}s`);
+  console.log(`[recycle] complete in ${((Date.now() - start) / 1000).toFixed(1)}s — new threshold ${_recycleThresholdMB.toFixed(0)}MB (baseline ${newBaselineMB.toFixed(0)}MB)`);
 
   // Open gate — queued requests proceed with new instance
   openGate();
