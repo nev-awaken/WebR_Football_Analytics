@@ -96,6 +96,9 @@ generate_dataset <- function(team_name) {
 
   events_slim <- events %>%
     dplyr::select(
+      match_id, index,          # (match_id, index) uniquely identifies a StatsBomb
+                                # event — used to dedupe head-to-head matches that
+                                # are stored in two teams' files (see combine_datasets)
       minute, type.name, under_pressure,
       team.name, player.name,
       shot.outcome.name, shot.statsbomb_xg,

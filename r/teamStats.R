@@ -1,5 +1,19 @@
 defactorise <- function(df) dplyr::mutate(df, dplyr::across(where(is.factor), as.character))
 
+# Combine all preloaded team datasets into one frame for multi-team analysis.
+# A match between two dataset teams is stored in BOTH teams' files, so the same
+# events appear twice after bind_rows — which double-counts the all-teams stats.
+# (match_id, index) uniquely identifies a StatsBomb event and is identical across
+# files, so distinct() drops the duplicates. Guarded with %in% so it stays a safe
+# no-op on older datasets generated before these columns were added.
+combine_datasets <- function(data_list) {
+  combined <- dplyr::bind_rows(data_list)
+  if (all(c("match_id", "index") %in% names(combined))) {
+    combined <- dplyr::distinct(combined, match_id, index, .keep_all = TRUE)
+  }
+  combined
+}
+
 ACTION_TYPE <- list(
     "PASS"    = "Pass",
     "CARRY"   = "Carry",

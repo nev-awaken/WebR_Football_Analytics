@@ -31,7 +31,7 @@ export const datasetMap = Object.fromEntries(
 );
 
 const RECYCLE_COOLDOWN_MS  = 5 * 60 * 1000;
-const RECYCLE_HEADROOM_MB    = parseInt(process.env.RECYCLE_HEADROOM_MB || '400');
+const RECYCLE_HEADROOM_MB    = parseInt(process.env.RECYCLE_HEADROOM_MB || '200');
 const RECYCLE_THRESHOLD_HARD = process.env.RECYCLE_THRESHOLD_MB ? parseInt(process.env.RECYCLE_THRESHOLD_MB) : null;
 
 // Mutable instance state
@@ -53,6 +53,12 @@ function openGate() {
 }
 
 async function initWebR() {
+  // NOTE: we deliberately do NOT set R_GC_MEM_GROW=0. Measured, it only lowers
+  // the heap plateau by ~17MB but adds ~110ms (~6%) to every heavy request
+  // because R then GCs aggressively mid-computation. The per-request gc(full=TRUE)
+  // in gcWebR already keeps the plateau flat (~342MB, ~10MB drift over 30 heavy
+  // requests) for only ~30ms/request — a far better trade. See
+  // docs/memory-optimization-research.md.
   const instance = new WebR();
   logStage("boot");
   await instance.init();
@@ -64,9 +70,27 @@ async function initWebR() {
   await mountDataDir(instance, __dirname);
   const teams = Object.keys(datasetMap).map(t => `"${t.replace(/"/g, '\\"')}"`).join(", ");
   await instance.evalRVoid(`dataset_teams <- c(${teams})`);
+  await preloadDatasets(instance);
+  logStage("after preload");
   logStage("ready");
   console.log("webR ready");
   return instance;
+}
+
+// Preload every dataset once into a resident R list `TEAM_DATA`, keyed by team
+// name. readRDS (xz decompress + unserialize) is ~90% of a request's time, so
+// doing it once at startup instead of per-request makes the analysis endpoints
+// ~5-10x faster. Peak memory is unchanged — the all-teams endpoints already force
+// the heap to hold every dataset at once — only the idle baseline rises by the
+// resident frames. The combined set for all-teams is built per-request from these
+// in-memory frames (no decompress), so it stays transient. Re-runs on every
+// recycle because it lives in initWebR.
+async function preloadDatasets(webR) {
+  await webR.evalRVoid("TEAM_DATA <- list()");
+  for (const [team, file] of Object.entries(datasetMap)) {
+    const key = team.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+    await webR.evalRVoid(`TEAM_DATA[["${key}"]] <- readRDS("/home/web_user/data/${file}")`);
+  }
 }
 
 // Startup
@@ -91,6 +115,19 @@ export async function acquireWebR() {
 // Release after request completes (call after shelter.purge()).
 export function releaseWebR() {
   _activeRequests--;
+}
+
+// Force an R garbage collection. Call after shelter.purge() (while the instance
+// is still acquired) so freed request temporaries return to dlmalloc's free list
+// and get reused, instead of the WASM heap growing to a new high-water mark.
+// This does NOT return memory to the OS (only recycleWebR can) — it keeps the
+// heap from drifting upward so recycles stay rare. Never throws.
+export async function gcWebR(webR) {
+  try {
+    await webR.evalRVoid("invisible(gc(full = TRUE))");
+  } catch {
+    /* gc is best-effort — a failure here must not break the request */
+  }
 }
 
 // Close the current WebR instance, free the WASM heap, and reinitialise.
