@@ -1,4 +1,5 @@
-# ── Params ───────────────────────────────────────────────────────────────────
+# * ------ Locally Used File Not Part of the Web Server -----------
+
 # Run FreeCompetitions() in R console to look up competition and season IDs
 COMP_ID     <- 2          # 2  = Premier League
 SEASON_ID   <- 27         # 27 = 2015/2016

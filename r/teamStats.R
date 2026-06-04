@@ -33,7 +33,7 @@ DRIBBLE_OUTCOME <- list(
 # Shooting summary for all teams in the dataset
 team_shooting_stats <- function(data) {
   data %>%
-    filter(type.name == "Shot") %>%
+    filter(type.name == ACTION_TYPE$SHOT) %>%
     group_by(team.name) %>%
     summarise(
       total_shots        = n(),

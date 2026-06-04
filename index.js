@@ -4,6 +4,7 @@ import rateLimit from 'express-rate-limit';
 import { statsRoutes } from './routes/statsRoutes.js';
 import { pingRoutes } from './routes/pingRoutes.js';
 import { teamStatsRoutes } from './routes/teamStatsRoutes.js';
+import { xgRoutes } from './routes/xgRoutes.js'
 import { startMonitor } from './helpers/monitor.js';
 import { recycleWebR } from './webRInstance.js';
 
@@ -27,6 +28,7 @@ app.use(express.json());
 app.use(express.static('public'));
 app.use("/stats",      ...(rateLimitDisabled ? [] : [limiter]), statsRoutes);
 app.use("/team-stats", ...(rateLimitDisabled ? [] : [limiter]), teamStatsRoutes);
+app.use("/xg", ...(rateLimitDisabled ? [] : [limiter]), xgRoutes);
 app.use("/",           pingRoutes);
 
 // Catch All Route
