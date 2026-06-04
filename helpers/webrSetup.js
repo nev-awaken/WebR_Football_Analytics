@@ -26,7 +26,7 @@ export async function ensurePackages(webR, packages, rootDir) {
     const vec = missing.map((p) => `"${p}"`).join(", ");
     await webR.evalRVoid(`webr::install(c(${vec}), mount = FALSE)`);
   } else {
-    console.log("All packages served from local cache — no download");
+    console.log(`All packages served from local cache from ${libHostDir}`);
   }
 
   for (const pkg of packages) {
