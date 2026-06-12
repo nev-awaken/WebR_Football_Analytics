@@ -1,0 +1,15 @@
+{
+  "model": "match-outcome-prediction",
+  "method": "Poisson attack/defence ratings",
+  "trained_at": "2026-06-06 12:33:10",
+  "competition": "Premier League",
+  "season": "2015/2016",
+  "n_matches": 380,
+  "n_teams": 20,
+  "test": {
+    "outcome_accuracy": 50,
+    "mean_abs_error": 0.893,
+    "log_likelihood": -1082.7,
+    "n_test": 380
+  }
+}

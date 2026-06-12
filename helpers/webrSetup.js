@@ -41,6 +41,16 @@ export async function mountDataDir(webR, rootDir) {
   await webR.FS.mount("NODEFS", { root: dataHost }, webRDir);
 }
 
+// Mount the trained-model directory (created on demand) so readRDS can load the
+// match-outcome model artifact at startup. Host dir is created if missing.
+export async function mountModelsDir(webR, rootDir) {
+  const webRDir    = "/home/web_user/models";
+  const modelsHost = path.join(rootDir, "models");
+  fs.mkdirSync(modelsHost, { recursive: true });
+  await webR.FS.mkdir(webRDir);
+  await webR.FS.mount("NODEFS", { root: modelsHost }, webRDir);
+}
+
 export async function loadRScripts(webR, files, scriptDir) {
   for (const filename of files) {
     const localPath = path.join(scriptDir, filename);

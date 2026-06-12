@@ -1,0 +1,3050 @@
+{
+  "competition_id": 2,
+  "season_id": 27,
+  "competition": "Premier League",
+  "season": "2015/2016",
+  "total_matches": 380,
+  "generated_at": "2026-06-06 12:32:27",
+  "matches": [
+    {
+      "match_id": 3754097,
+      "match_date": "2015-08-08",
+      "home_team": "Manchester United",
+      "away_team": "Tottenham Hotspur",
+      "home_goals": 1,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754237,
+      "match_date": "2015-08-08",
+      "home_team": "Leicester City",
+      "away_team": "Sunderland",
+      "home_goals": 4,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754300,
+      "match_date": "2015-08-08",
+      "home_team": "Everton",
+      "away_team": "Watford",
+      "home_goals": 2,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754138,
+      "match_date": "2015-08-08",
+      "home_team": "Norwich City",
+      "away_team": "Crystal Palace",
+      "home_goals": 1,
+      "away_goals": 3
+    },
+    {
+      "match_id": 3754128,
+      "match_date": "2015-08-08",
+      "home_team": "AFC Bournemouth",
+      "away_team": "Aston Villa",
+      "home_goals": 0,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754078,
+      "match_date": "2015-08-08",
+      "home_team": "Chelsea",
+      "away_team": "Swansea City",
+      "home_goals": 2,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754112,
+      "match_date": "2015-08-09",
+      "home_team": "Newcastle United",
+      "away_team": "Southampton",
+      "home_goals": 2,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3753985,
+      "match_date": "2015-08-09",
+      "home_team": "Stoke City",
+      "away_team": "Liverpool",
+      "home_goals": 0,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754141,
+      "match_date": "2015-08-09",
+      "home_team": "Arsenal",
+      "away_team": "West Ham United",
+      "home_goals": 0,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754145,
+      "match_date": "2015-08-10",
+      "home_team": "West Bromwich Albion",
+      "away_team": "Manchester City",
+      "home_goals": 0,
+      "away_goals": 3
+    },
+    {
+      "match_id": 3754107,
+      "match_date": "2015-08-14",
+      "home_team": "Aston Villa",
+      "away_team": "Manchester United",
+      "home_goals": 0,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3753993,
+      "match_date": "2015-08-15",
+      "home_team": "Sunderland",
+      "away_team": "Norwich City",
+      "home_goals": 1,
+      "away_goals": 3
+    },
+    {
+      "match_id": 3754270,
+      "match_date": "2015-08-15",
+      "home_team": "Tottenham Hotspur",
+      "away_team": "Stoke City",
+      "home_goals": 2,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754344,
+      "match_date": "2015-08-15",
+      "home_team": "Swansea City",
+      "away_team": "Newcastle United",
+      "home_goals": 2,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754203,
+      "match_date": "2015-08-15",
+      "home_team": "West Ham United",
+      "away_team": "Leicester City",
+      "home_goals": 1,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754034,
+      "match_date": "2015-08-15",
+      "home_team": "Southampton",
+      "away_team": "Everton",
+      "home_goals": 0,
+      "away_goals": 3
+    },
+    {
+      "match_id": 3754267,
+      "match_date": "2015-08-15",
+      "home_team": "Watford",
+      "away_team": "West Bromwich Albion",
+      "home_goals": 0,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754312,
+      "match_date": "2015-08-16",
+      "home_team": "Crystal Palace",
+      "away_team": "Arsenal",
+      "home_goals": 1,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754066,
+      "match_date": "2015-08-16",
+      "home_team": "Manchester City",
+      "away_team": "Chelsea",
+      "home_goals": 3,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754020,
+      "match_date": "2015-08-17",
+      "home_team": "Liverpool",
+      "away_team": "AFC Bournemouth",
+      "home_goals": 1,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754104,
+      "match_date": "2015-08-22",
+      "home_team": "Norwich City",
+      "away_team": "Stoke City",
+      "home_goals": 1,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754254,
+      "match_date": "2015-08-22",
+      "home_team": "Manchester United",
+      "away_team": "Newcastle United",
+      "home_goals": 0,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754131,
+      "match_date": "2015-08-22",
+      "home_team": "West Ham United",
+      "away_team": "AFC Bournemouth",
+      "home_goals": 3,
+      "away_goals": 4
+    },
+    {
+      "match_id": 3754190,
+      "match_date": "2015-08-22",
+      "home_team": "Crystal Palace",
+      "away_team": "Aston Villa",
+      "home_goals": 2,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3753987,
+      "match_date": "2015-08-22",
+      "home_team": "Leicester City",
+      "away_team": "Tottenham Hotspur",
+      "home_goals": 1,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754180,
+      "match_date": "2015-08-22",
+      "home_team": "Sunderland",
+      "away_team": "Swansea City",
+      "home_goals": 1,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754233,
+      "match_date": "2015-08-23",
+      "home_team": "Everton",
+      "away_team": "Manchester City",
+      "home_goals": 0,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754189,
+      "match_date": "2015-08-23",
+      "home_team": "Watford",
+      "away_team": "Southampton",
+      "home_goals": 0,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754059,
+      "match_date": "2015-08-23",
+      "home_team": "West Bromwich Albion",
+      "away_team": "Chelsea",
+      "home_goals": 2,
+      "away_goals": 3
+    },
+    {
+      "match_id": 3754129,
+      "match_date": "2015-08-24",
+      "home_team": "Arsenal",
+      "away_team": "Liverpool",
+      "home_goals": 0,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754007,
+      "match_date": "2015-08-29",
+      "home_team": "Stoke City",
+      "away_team": "West Bromwich Albion",
+      "home_goals": 0,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754023,
+      "match_date": "2015-08-29",
+      "home_team": "AFC Bournemouth",
+      "away_team": "Leicester City",
+      "home_goals": 1,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3753984,
+      "match_date": "2015-08-29",
+      "home_team": "Liverpool",
+      "away_team": "West Ham United",
+      "home_goals": 0,
+      "away_goals": 3
+    },
+    {
+      "match_id": 3754083,
+      "match_date": "2015-08-29",
+      "home_team": "Chelsea",
+      "away_team": "Crystal Palace",
+      "home_goals": 1,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754205,
+      "match_date": "2015-08-29",
+      "home_team": "Newcastle United",
+      "away_team": "Arsenal",
+      "home_goals": 0,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754204,
+      "match_date": "2015-08-29",
+      "home_team": "Aston Villa",
+      "away_team": "Sunderland",
+      "home_goals": 2,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754246,
+      "match_date": "2015-08-29",
+      "home_team": "Manchester City",
+      "away_team": "Watford",
+      "home_goals": 2,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754268,
+      "match_date": "2015-08-29",
+      "home_team": "Tottenham Hotspur",
+      "away_team": "Everton",
+      "home_goals": 0,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754221,
+      "match_date": "2015-08-30",
+      "home_team": "Swansea City",
+      "away_team": "Manchester United",
+      "home_goals": 2,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754337,
+      "match_date": "2015-08-30",
+      "home_team": "Southampton",
+      "away_team": "Norwich City",
+      "home_goals": 3,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754213,
+      "match_date": "2015-09-12",
+      "home_team": "Watford",
+      "away_team": "Swansea City",
+      "home_goals": 1,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754257,
+      "match_date": "2015-09-12",
+      "home_team": "Crystal Palace",
+      "away_team": "Manchester City",
+      "home_goals": 0,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754315,
+      "match_date": "2015-09-12",
+      "home_team": "Norwich City",
+      "away_team": "AFC Bournemouth",
+      "home_goals": 3,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754325,
+      "match_date": "2015-09-12",
+      "home_team": "West Bromwich Albion",
+      "away_team": "Southampton",
+      "home_goals": 0,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754240,
+      "match_date": "2015-09-12",
+      "home_team": "Arsenal",
+      "away_team": "Stoke City",
+      "home_goals": 2,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754336,
+      "match_date": "2015-09-12",
+      "home_team": "Everton",
+      "away_team": "Chelsea",
+      "home_goals": 3,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754003,
+      "match_date": "2015-09-12",
+      "home_team": "Manchester United",
+      "away_team": "Liverpool",
+      "home_goals": 3,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754106,
+      "match_date": "2015-09-13",
+      "home_team": "Leicester City",
+      "away_team": "Aston Villa",
+      "home_goals": 3,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754148,
+      "match_date": "2015-09-13",
+      "home_team": "Sunderland",
+      "away_team": "Tottenham Hotspur",
+      "home_goals": 0,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754329,
+      "match_date": "2015-09-14",
+      "home_team": "West Ham United",
+      "away_team": "Newcastle United",
+      "home_goals": 2,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754217,
+      "match_date": "2015-09-19",
+      "home_team": "Chelsea",
+      "away_team": "Arsenal",
+      "home_goals": 2,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754146,
+      "match_date": "2015-09-19",
+      "home_team": "Stoke City",
+      "away_team": "Leicester City",
+      "home_goals": 2,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754010,
+      "match_date": "2015-09-19",
+      "home_team": "Newcastle United",
+      "away_team": "Watford",
+      "home_goals": 1,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754068,
+      "match_date": "2015-09-19",
+      "home_team": "Aston Villa",
+      "away_team": "West Bromwich Albion",
+      "home_goals": 0,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754077,
+      "match_date": "2015-09-19",
+      "home_team": "Manchester City",
+      "away_team": "West Ham United",
+      "home_goals": 1,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754169,
+      "match_date": "2015-09-19",
+      "home_team": "AFC Bournemouth",
+      "away_team": "Sunderland",
+      "home_goals": 2,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754298,
+      "match_date": "2015-09-19",
+      "home_team": "Swansea City",
+      "away_team": "Everton",
+      "home_goals": 0,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754011,
+      "match_date": "2015-09-20",
+      "home_team": "Southampton",
+      "away_team": "Manchester United",
+      "home_goals": 2,
+      "away_goals": 3
+    },
+    {
+      "match_id": 3754040,
+      "match_date": "2015-09-20",
+      "home_team": "Liverpool",
+      "away_team": "Norwich City",
+      "home_goals": 1,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754222,
+      "match_date": "2015-09-20",
+      "home_team": "Tottenham Hotspur",
+      "away_team": "Crystal Palace",
+      "home_goals": 1,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754339,
+      "match_date": "2015-09-26",
+      "home_team": "Stoke City",
+      "away_team": "AFC Bournemouth",
+      "home_goals": 2,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3753978,
+      "match_date": "2015-09-26",
+      "home_team": "Southampton",
+      "away_team": "Swansea City",
+      "home_goals": 3,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754001,
+      "match_date": "2015-09-26",
+      "home_team": "Newcastle United",
+      "away_team": "Chelsea",
+      "home_goals": 2,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754008,
+      "match_date": "2015-09-26",
+      "home_team": "Manchester United",
+      "away_team": "Sunderland",
+      "home_goals": 3,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754174,
+      "match_date": "2015-09-26",
+      "home_team": "Leicester City",
+      "away_team": "Arsenal",
+      "home_goals": 2,
+      "away_goals": 5
+    },
+    {
+      "match_id": 3754212,
+      "match_date": "2015-09-26",
+      "home_team": "Liverpool",
+      "away_team": "Aston Villa",
+      "home_goals": 3,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754197,
+      "match_date": "2015-09-26",
+      "home_team": "Tottenham Hotspur",
+      "away_team": "Manchester City",
+      "home_goals": 4,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754323,
+      "match_date": "2015-09-26",
+      "home_team": "West Ham United",
+      "away_team": "Norwich City",
+      "home_goals": 2,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754266,
+      "match_date": "2015-09-27",
+      "home_team": "Watford",
+      "away_team": "Crystal Palace",
+      "home_goals": 0,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754105,
+      "match_date": "2015-09-28",
+      "home_team": "West Bromwich Albion",
+      "away_team": "Everton",
+      "home_goals": 2,
+      "away_goals": 3
+    },
+    {
+      "match_id": 3754278,
+      "match_date": "2015-10-03",
+      "home_team": "AFC Bournemouth",
+      "away_team": "Watford",
+      "home_goals": 1,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3753995,
+      "match_date": "2015-10-03",
+      "home_team": "Chelsea",
+      "away_team": "Southampton",
+      "home_goals": 1,
+      "away_goals": 3
+    },
+    {
+      "match_id": 3754076,
+      "match_date": "2015-10-03",
+      "home_team": "Sunderland",
+      "away_team": "West Ham United",
+      "home_goals": 2,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754079,
+      "match_date": "2015-10-03",
+      "home_team": "Manchester City",
+      "away_team": "Newcastle United",
+      "home_goals": 6,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754099,
+      "match_date": "2015-10-03",
+      "home_team": "Crystal Palace",
+      "away_team": "West Bromwich Albion",
+      "home_goals": 2,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754335,
+      "match_date": "2015-10-03",
+      "home_team": "Norwich City",
+      "away_team": "Leicester City",
+      "home_goals": 1,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754330,
+      "match_date": "2015-10-03",
+      "home_team": "Aston Villa",
+      "away_team": "Stoke City",
+      "home_goals": 0,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754074,
+      "match_date": "2015-10-04",
+      "home_team": "Swansea City",
+      "away_team": "Tottenham Hotspur",
+      "home_goals": 2,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754060,
+      "match_date": "2015-10-04",
+      "home_team": "Everton",
+      "away_team": "Liverpool",
+      "home_goals": 1,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754171,
+      "match_date": "2015-10-04",
+      "home_team": "Arsenal",
+      "away_team": "Manchester United",
+      "home_goals": 3,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754245,
+      "match_date": "2015-10-17",
+      "home_team": "West Bromwich Albion",
+      "away_team": "Sunderland",
+      "home_goals": 1,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3753999,
+      "match_date": "2015-10-17",
+      "home_team": "Watford",
+      "away_team": "Arsenal",
+      "home_goals": 0,
+      "away_goals": 3
+    },
+    {
+      "match_id": 3754067,
+      "match_date": "2015-10-17",
+      "home_team": "Crystal Palace",
+      "away_team": "West Ham United",
+      "home_goals": 1,
+      "away_goals": 3
+    },
+    {
+      "match_id": 3754115,
+      "match_date": "2015-10-17",
+      "home_team": "Chelsea",
+      "away_team": "Aston Villa",
+      "home_goals": 2,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754198,
+      "match_date": "2015-10-17",
+      "home_team": "Tottenham Hotspur",
+      "away_team": "Liverpool",
+      "home_goals": 0,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754193,
+      "match_date": "2015-10-17",
+      "home_team": "Manchester City",
+      "away_team": "AFC Bournemouth",
+      "home_goals": 5,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754256,
+      "match_date": "2015-10-17",
+      "home_team": "Everton",
+      "away_team": "Manchester United",
+      "home_goals": 0,
+      "away_goals": 3
+    },
+    {
+      "match_id": 3754302,
+      "match_date": "2015-10-17",
+      "home_team": "Southampton",
+      "away_team": "Leicester City",
+      "home_goals": 2,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754102,
+      "match_date": "2015-10-18",
+      "home_team": "Newcastle United",
+      "away_team": "Norwich City",
+      "home_goals": 6,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754269,
+      "match_date": "2015-10-19",
+      "home_team": "Swansea City",
+      "away_team": "Stoke City",
+      "home_goals": 0,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754091,
+      "match_date": "2015-10-24",
+      "home_team": "Stoke City",
+      "away_team": "Watford",
+      "home_goals": 0,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754017,
+      "match_date": "2015-10-24",
+      "home_team": "Aston Villa",
+      "away_team": "Swansea City",
+      "home_goals": 1,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754126,
+      "match_date": "2015-10-24",
+      "home_team": "Arsenal",
+      "away_team": "Everton",
+      "home_goals": 2,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754133,
+      "match_date": "2015-10-24",
+      "home_team": "Norwich City",
+      "away_team": "West Bromwich Albion",
+      "home_goals": 0,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754288,
+      "match_date": "2015-10-24",
+      "home_team": "West Ham United",
+      "away_team": "Chelsea",
+      "home_goals": 2,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754263,
+      "match_date": "2015-10-24",
+      "home_team": "Leicester City",
+      "away_team": "Crystal Palace",
+      "home_goals": 1,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754015,
+      "match_date": "2015-10-25",
+      "home_team": "Manchester United",
+      "away_team": "Manchester City",
+      "home_goals": 0,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754119,
+      "match_date": "2015-10-25",
+      "home_team": "Sunderland",
+      "away_team": "Newcastle United",
+      "home_goals": 3,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754230,
+      "match_date": "2015-10-25",
+      "home_team": "Liverpool",
+      "away_team": "Southampton",
+      "home_goals": 1,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754234,
+      "match_date": "2015-10-25",
+      "home_team": "AFC Bournemouth",
+      "away_team": "Tottenham Hotspur",
+      "home_goals": 1,
+      "away_goals": 5
+    },
+    {
+      "match_id": 3753983,
+      "match_date": "2015-10-31",
+      "home_team": "Swansea City",
+      "away_team": "Arsenal",
+      "home_goals": 0,
+      "away_goals": 3
+    },
+    {
+      "match_id": 3754006,
+      "match_date": "2015-10-31",
+      "home_team": "West Bromwich Albion",
+      "away_team": "Leicester City",
+      "home_goals": 2,
+      "away_goals": 3
+    },
+    {
+      "match_id": 3754090,
+      "match_date": "2015-10-31",
+      "home_team": "Newcastle United",
+      "away_team": "Stoke City",
+      "home_goals": 0,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754098,
+      "match_date": "2015-10-31",
+      "home_team": "Chelsea",
+      "away_team": "Liverpool",
+      "home_goals": 1,
+      "away_goals": 3
+    },
+    {
+      "match_id": 3754167,
+      "match_date": "2015-10-31",
+      "home_team": "Manchester City",
+      "away_team": "Norwich City",
+      "home_goals": 2,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754223,
+      "match_date": "2015-10-31",
+      "home_team": "Crystal Palace",
+      "away_team": "Manchester United",
+      "home_goals": 0,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754273,
+      "match_date": "2015-10-31",
+      "home_team": "Watford",
+      "away_team": "West Ham United",
+      "home_goals": 2,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754082,
+      "match_date": "2015-11-01",
+      "home_team": "Everton",
+      "away_team": "Sunderland",
+      "home_goals": 6,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754191,
+      "match_date": "2015-11-01",
+      "home_team": "Southampton",
+      "away_team": "AFC Bournemouth",
+      "home_goals": 2,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754029,
+      "match_date": "2015-11-02",
+      "home_team": "Tottenham Hotspur",
+      "away_team": "Aston Villa",
+      "home_goals": 3,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754293,
+      "match_date": "2015-11-07",
+      "home_team": "Stoke City",
+      "away_team": "Chelsea",
+      "home_goals": 1,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754194,
+      "match_date": "2015-11-07",
+      "home_team": "West Ham United",
+      "away_team": "Everton",
+      "home_goals": 1,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754238,
+      "match_date": "2015-11-07",
+      "home_team": "AFC Bournemouth",
+      "away_team": "Newcastle United",
+      "home_goals": 0,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754297,
+      "match_date": "2015-11-07",
+      "home_team": "Manchester United",
+      "away_team": "West Bromwich Albion",
+      "home_goals": 2,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754311,
+      "match_date": "2015-11-07",
+      "home_team": "Norwich City",
+      "away_team": "Swansea City",
+      "home_goals": 1,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754156,
+      "match_date": "2015-11-07",
+      "home_team": "Leicester City",
+      "away_team": "Watford",
+      "home_goals": 2,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754000,
+      "match_date": "2015-11-07",
+      "home_team": "Sunderland",
+      "away_team": "Southampton",
+      "home_goals": 0,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754351,
+      "match_date": "2015-11-08",
+      "home_team": "Liverpool",
+      "away_team": "Crystal Palace",
+      "home_goals": 1,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754265,
+      "match_date": "2015-11-08",
+      "home_team": "Arsenal",
+      "away_team": "Tottenham Hotspur",
+      "home_goals": 1,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754258,
+      "match_date": "2015-11-08",
+      "home_team": "Aston Villa",
+      "away_team": "Manchester City",
+      "home_goals": 0,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3753972,
+      "match_date": "2015-11-21",
+      "home_team": "Swansea City",
+      "away_team": "AFC Bournemouth",
+      "home_goals": 2,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3753996,
+      "match_date": "2015-11-21",
+      "home_team": "Chelsea",
+      "away_team": "Norwich City",
+      "home_goals": 1,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754185,
+      "match_date": "2015-11-21",
+      "home_team": "Watford",
+      "away_team": "Manchester United",
+      "home_goals": 1,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754211,
+      "match_date": "2015-11-21",
+      "home_team": "Newcastle United",
+      "away_team": "Leicester City",
+      "home_goals": 0,
+      "away_goals": 3
+    },
+    {
+      "match_id": 3754208,
+      "match_date": "2015-11-21",
+      "home_team": "Manchester City",
+      "away_team": "Liverpool",
+      "home_goals": 1,
+      "away_goals": 4
+    },
+    {
+      "match_id": 3754283,
+      "match_date": "2015-11-21",
+      "home_team": "Everton",
+      "away_team": "Aston Villa",
+      "home_goals": 4,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754301,
+      "match_date": "2015-11-21",
+      "home_team": "West Bromwich Albion",
+      "away_team": "Arsenal",
+      "home_goals": 2,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754247,
+      "match_date": "2015-11-21",
+      "home_team": "Southampton",
+      "away_team": "Stoke City",
+      "home_goals": 0,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754109,
+      "match_date": "2015-11-22",
+      "home_team": "Tottenham Hotspur",
+      "away_team": "West Ham United",
+      "home_goals": 4,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3753979,
+      "match_date": "2015-11-23",
+      "home_team": "Crystal Palace",
+      "away_team": "Sunderland",
+      "home_goals": 0,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754028,
+      "match_date": "2015-11-28",
+      "home_team": "Manchester City",
+      "away_team": "Southampton",
+      "home_goals": 3,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754186,
+      "match_date": "2015-11-28",
+      "home_team": "Leicester City",
+      "away_team": "Manchester United",
+      "home_goals": 1,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754178,
+      "match_date": "2015-11-28",
+      "home_team": "Aston Villa",
+      "away_team": "Watford",
+      "home_goals": 2,
+      "away_goals": 3
+    },
+    {
+      "match_id": 3754157,
+      "match_date": "2015-11-28",
+      "home_team": "AFC Bournemouth",
+      "away_team": "Everton",
+      "home_goals": 3,
+      "away_goals": 3
+    },
+    {
+      "match_id": 3754150,
+      "match_date": "2015-11-28",
+      "home_team": "Sunderland",
+      "away_team": "Stoke City",
+      "home_goals": 2,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754304,
+      "match_date": "2015-11-28",
+      "home_team": "Crystal Palace",
+      "away_team": "Newcastle United",
+      "home_goals": 5,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754047,
+      "match_date": "2015-11-29",
+      "home_team": "Liverpool",
+      "away_team": "Swansea City",
+      "home_goals": 1,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754038,
+      "match_date": "2015-11-29",
+      "home_team": "Norwich City",
+      "away_team": "Arsenal",
+      "home_goals": 1,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754093,
+      "match_date": "2015-11-29",
+      "home_team": "Tottenham Hotspur",
+      "away_team": "Chelsea",
+      "home_goals": 0,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754235,
+      "match_date": "2015-11-29",
+      "home_team": "West Ham United",
+      "away_team": "West Bromwich Albion",
+      "home_goals": 1,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754160,
+      "match_date": "2015-12-05",
+      "home_team": "Arsenal",
+      "away_team": "Sunderland",
+      "home_goals": 3,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754135,
+      "match_date": "2015-12-05",
+      "home_team": "Stoke City",
+      "away_team": "Manchester City",
+      "home_goals": 2,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754347,
+      "match_date": "2015-12-05",
+      "home_team": "Manchester United",
+      "away_team": "West Ham United",
+      "home_goals": 0,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754073,
+      "match_date": "2015-12-05",
+      "home_team": "Chelsea",
+      "away_team": "AFC Bournemouth",
+      "home_goals": 0,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754085,
+      "match_date": "2015-12-05",
+      "home_team": "Swansea City",
+      "away_team": "Leicester City",
+      "home_goals": 0,
+      "away_goals": 3
+    },
+    {
+      "match_id": 3754113,
+      "match_date": "2015-12-05",
+      "home_team": "Southampton",
+      "away_team": "Aston Villa",
+      "home_goals": 1,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754286,
+      "match_date": "2015-12-05",
+      "home_team": "Watford",
+      "away_team": "Norwich City",
+      "home_goals": 2,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754215,
+      "match_date": "2015-12-05",
+      "home_team": "West Bromwich Albion",
+      "away_team": "Tottenham Hotspur",
+      "home_goals": 1,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754143,
+      "match_date": "2015-12-06",
+      "home_team": "Newcastle United",
+      "away_team": "Liverpool",
+      "home_goals": 2,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754046,
+      "match_date": "2015-12-07",
+      "home_team": "Everton",
+      "away_team": "Crystal Palace",
+      "home_goals": 1,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754072,
+      "match_date": "2015-12-12",
+      "home_team": "Sunderland",
+      "away_team": "Watford",
+      "home_goals": 0,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754162,
+      "match_date": "2015-12-12",
+      "home_team": "AFC Bournemouth",
+      "away_team": "Manchester United",
+      "home_goals": 2,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754096,
+      "match_date": "2015-12-12",
+      "home_team": "West Ham United",
+      "away_team": "Stoke City",
+      "home_goals": 0,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754218,
+      "match_date": "2015-12-12",
+      "home_team": "Crystal Palace",
+      "away_team": "Southampton",
+      "home_goals": 1,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754328,
+      "match_date": "2015-12-12",
+      "home_team": "Manchester City",
+      "away_team": "Swansea City",
+      "home_goals": 2,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754182,
+      "match_date": "2015-12-12",
+      "home_team": "Norwich City",
+      "away_team": "Everton",
+      "home_goals": 1,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754117,
+      "match_date": "2015-12-13",
+      "home_team": "Aston Villa",
+      "away_team": "Arsenal",
+      "home_goals": 0,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754255,
+      "match_date": "2015-12-13",
+      "home_team": "Liverpool",
+      "away_team": "West Bromwich Albion",
+      "home_goals": 2,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754276,
+      "match_date": "2015-12-13",
+      "home_team": "Tottenham Hotspur",
+      "away_team": "Newcastle United",
+      "home_goals": 1,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754013,
+      "match_date": "2015-12-14",
+      "home_team": "Leicester City",
+      "away_team": "Chelsea",
+      "home_goals": 2,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754136,
+      "match_date": "2015-12-19",
+      "home_team": "Newcastle United",
+      "away_team": "Aston Villa",
+      "home_goals": 1,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754025,
+      "match_date": "2015-12-19",
+      "home_team": "Chelsea",
+      "away_team": "Sunderland",
+      "home_goals": 3,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754153,
+      "match_date": "2015-12-19",
+      "home_team": "Stoke City",
+      "away_team": "Crystal Palace",
+      "home_goals": 1,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754188,
+      "match_date": "2015-12-19",
+      "home_team": "Southampton",
+      "away_team": "Tottenham Hotspur",
+      "home_goals": 0,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754166,
+      "match_date": "2015-12-19",
+      "home_team": "Everton",
+      "away_team": "Leicester City",
+      "home_goals": 2,
+      "away_goals": 3
+    },
+    {
+      "match_id": 3754219,
+      "match_date": "2015-12-19",
+      "home_team": "West Bromwich Albion",
+      "away_team": "AFC Bournemouth",
+      "home_goals": 1,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754044,
+      "match_date": "2015-12-19",
+      "home_team": "Manchester United",
+      "away_team": "Norwich City",
+      "home_goals": 1,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754051,
+      "match_date": "2015-12-20",
+      "home_team": "Watford",
+      "away_team": "Liverpool",
+      "home_goals": 3,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754259,
+      "match_date": "2015-12-20",
+      "home_team": "Swansea City",
+      "away_team": "West Ham United",
+      "home_goals": 0,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754296,
+      "match_date": "2015-12-21",
+      "home_team": "Arsenal",
+      "away_team": "Manchester City",
+      "home_goals": 2,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754309,
+      "match_date": "2015-12-26",
+      "home_team": "Southampton",
+      "away_team": "Arsenal",
+      "home_goals": 4,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754014,
+      "match_date": "2015-12-26",
+      "home_team": "Stoke City",
+      "away_team": "Manchester United",
+      "home_goals": 2,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3753974,
+      "match_date": "2015-12-26",
+      "home_team": "Newcastle United",
+      "away_team": "Everton",
+      "home_goals": 0,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754057,
+      "match_date": "2015-12-26",
+      "home_team": "Tottenham Hotspur",
+      "away_team": "Norwich City",
+      "home_goals": 3,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754054,
+      "match_date": "2015-12-26",
+      "home_team": "Manchester City",
+      "away_team": "Sunderland",
+      "home_goals": 4,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754285,
+      "match_date": "2015-12-26",
+      "home_team": "Aston Villa",
+      "away_team": "West Ham United",
+      "home_goals": 1,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754279,
+      "match_date": "2015-12-26",
+      "home_team": "Swansea City",
+      "away_team": "West Bromwich Albion",
+      "home_goals": 1,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754287,
+      "match_date": "2015-12-26",
+      "home_team": "Chelsea",
+      "away_team": "Watford",
+      "home_goals": 2,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754343,
+      "match_date": "2015-12-26",
+      "home_team": "Liverpool",
+      "away_team": "Leicester City",
+      "home_goals": 1,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754248,
+      "match_date": "2015-12-26",
+      "home_team": "AFC Bournemouth",
+      "away_team": "Crystal Palace",
+      "home_goals": 0,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754056,
+      "match_date": "2015-12-28",
+      "home_team": "Everton",
+      "away_team": "Stoke City",
+      "home_goals": 3,
+      "away_goals": 4
+    },
+    {
+      "match_id": 3754130,
+      "match_date": "2015-12-28",
+      "home_team": "Norwich City",
+      "away_team": "Aston Villa",
+      "home_goals": 2,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754291,
+      "match_date": "2015-12-28",
+      "home_team": "Watford",
+      "away_team": "Tottenham Hotspur",
+      "home_goals": 1,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754173,
+      "match_date": "2015-12-28",
+      "home_team": "Arsenal",
+      "away_team": "AFC Bournemouth",
+      "home_goals": 2,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3753998,
+      "match_date": "2015-12-28",
+      "home_team": "West Ham United",
+      "away_team": "Southampton",
+      "home_goals": 2,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754019,
+      "match_date": "2015-12-28",
+      "home_team": "Manchester United",
+      "away_team": "Chelsea",
+      "home_goals": 0,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754195,
+      "match_date": "2015-12-28",
+      "home_team": "West Bromwich Albion",
+      "away_team": "Newcastle United",
+      "home_goals": 1,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754326,
+      "match_date": "2015-12-28",
+      "home_team": "Crystal Palace",
+      "away_team": "Swansea City",
+      "home_goals": 0,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754045,
+      "match_date": "2015-12-29",
+      "home_team": "Leicester City",
+      "away_team": "Manchester City",
+      "home_goals": 0,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754226,
+      "match_date": "2015-12-30",
+      "home_team": "Sunderland",
+      "away_team": "Liverpool",
+      "home_goals": 0,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754058,
+      "match_date": "2016-01-02",
+      "home_team": "Leicester City",
+      "away_team": "AFC Bournemouth",
+      "home_goals": 0,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754036,
+      "match_date": "2016-01-02",
+      "home_team": "Sunderland",
+      "away_team": "Aston Villa",
+      "home_goals": 3,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754069,
+      "match_date": "2016-01-02",
+      "home_team": "Arsenal",
+      "away_team": "Newcastle United",
+      "home_goals": 1,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754101,
+      "match_date": "2016-01-02",
+      "home_team": "Norwich City",
+      "away_team": "Southampton",
+      "home_goals": 1,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754122,
+      "match_date": "2016-01-02",
+      "home_team": "West Bromwich Albion",
+      "away_team": "Stoke City",
+      "home_goals": 2,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754251,
+      "match_date": "2016-01-02",
+      "home_team": "West Ham United",
+      "away_team": "Liverpool",
+      "home_goals": 2,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754319,
+      "match_date": "2016-01-02",
+      "home_team": "Manchester United",
+      "away_team": "Swansea City",
+      "home_goals": 2,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754346,
+      "match_date": "2016-01-02",
+      "home_team": "Watford",
+      "away_team": "Manchester City",
+      "home_goals": 1,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754114,
+      "match_date": "2016-01-03",
+      "home_team": "Crystal Palace",
+      "away_team": "Chelsea",
+      "home_goals": 0,
+      "away_goals": 3
+    },
+    {
+      "match_id": 3754140,
+      "match_date": "2016-01-03",
+      "home_team": "Everton",
+      "away_team": "Tottenham Hotspur",
+      "home_goals": 1,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3753981,
+      "match_date": "2016-01-12",
+      "home_team": "Aston Villa",
+      "away_team": "Crystal Palace",
+      "home_goals": 1,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754021,
+      "match_date": "2016-01-12",
+      "home_team": "AFC Bournemouth",
+      "away_team": "West Ham United",
+      "home_goals": 1,
+      "away_goals": 3
+    },
+    {
+      "match_id": 3754088,
+      "match_date": "2016-01-12",
+      "home_team": "Newcastle United",
+      "away_team": "Manchester United",
+      "home_goals": 3,
+      "away_goals": 3
+    },
+    {
+      "match_id": 3754065,
+      "match_date": "2016-01-13",
+      "home_team": "Tottenham Hotspur",
+      "away_team": "Leicester City",
+      "home_goals": 0,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754032,
+      "match_date": "2016-01-13",
+      "home_team": "Stoke City",
+      "away_team": "Norwich City",
+      "home_goals": 3,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754062,
+      "match_date": "2016-01-13",
+      "home_team": "Chelsea",
+      "away_team": "West Bromwich Albion",
+      "home_goals": 2,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754071,
+      "match_date": "2016-01-13",
+      "home_team": "Swansea City",
+      "away_team": "Sunderland",
+      "home_goals": 2,
+      "away_goals": 4
+    },
+    {
+      "match_id": 3754142,
+      "match_date": "2016-01-13",
+      "home_team": "Manchester City",
+      "away_team": "Everton",
+      "home_goals": 0,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754183,
+      "match_date": "2016-01-13",
+      "home_team": "Southampton",
+      "away_team": "Watford",
+      "home_goals": 2,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754305,
+      "match_date": "2016-01-13",
+      "home_team": "Liverpool",
+      "away_team": "Arsenal",
+      "home_goals": 3,
+      "away_goals": 3
+    },
+    {
+      "match_id": 3754004,
+      "match_date": "2016-01-16",
+      "home_team": "AFC Bournemouth",
+      "away_team": "Norwich City",
+      "home_goals": 3,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754027,
+      "match_date": "2016-01-16",
+      "home_team": "Tottenham Hotspur",
+      "away_team": "Sunderland",
+      "home_goals": 4,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754125,
+      "match_date": "2016-01-16",
+      "home_team": "Chelsea",
+      "away_team": "Everton",
+      "home_goals": 3,
+      "away_goals": 3
+    },
+    {
+      "match_id": 3754168,
+      "match_date": "2016-01-16",
+      "home_team": "Southampton",
+      "away_team": "West Bromwich Albion",
+      "home_goals": 3,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754250,
+      "match_date": "2016-01-16",
+      "home_team": "Aston Villa",
+      "away_team": "Leicester City",
+      "home_goals": 1,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754260,
+      "match_date": "2016-01-16",
+      "home_team": "Manchester City",
+      "away_team": "Crystal Palace",
+      "home_goals": 4,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754338,
+      "match_date": "2016-01-16",
+      "home_team": "Newcastle United",
+      "away_team": "West Ham United",
+      "home_goals": 2,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754202,
+      "match_date": "2016-01-17",
+      "home_team": "Stoke City",
+      "away_team": "Arsenal",
+      "home_goals": 0,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754345,
+      "match_date": "2016-01-17",
+      "home_team": "Liverpool",
+      "away_team": "Manchester United",
+      "home_goals": 0,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754161,
+      "match_date": "2016-01-18",
+      "home_team": "Swansea City",
+      "away_team": "Watford",
+      "home_goals": 1,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3753975,
+      "match_date": "2016-01-23",
+      "home_team": "Sunderland",
+      "away_team": "AFC Bournemouth",
+      "home_goals": 1,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754084,
+      "match_date": "2016-01-23",
+      "home_team": "West Bromwich Albion",
+      "away_team": "Aston Villa",
+      "home_goals": 0,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754110,
+      "match_date": "2016-01-23",
+      "home_team": "West Ham United",
+      "away_team": "Manchester City",
+      "home_goals": 2,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754179,
+      "match_date": "2016-01-23",
+      "home_team": "Crystal Palace",
+      "away_team": "Tottenham Hotspur",
+      "home_goals": 1,
+      "away_goals": 3
+    },
+    {
+      "match_id": 3754200,
+      "match_date": "2016-01-23",
+      "home_team": "Manchester United",
+      "away_team": "Southampton",
+      "home_goals": 0,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754271,
+      "match_date": "2016-01-23",
+      "home_team": "Watford",
+      "away_team": "Newcastle United",
+      "home_goals": 2,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754341,
+      "match_date": "2016-01-23",
+      "home_team": "Leicester City",
+      "away_team": "Stoke City",
+      "home_goals": 3,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754348,
+      "match_date": "2016-01-23",
+      "home_team": "Norwich City",
+      "away_team": "Liverpool",
+      "home_goals": 4,
+      "away_goals": 5
+    },
+    {
+      "match_id": 3754111,
+      "match_date": "2016-01-24",
+      "home_team": "Arsenal",
+      "away_team": "Chelsea",
+      "home_goals": 0,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754163,
+      "match_date": "2016-01-24",
+      "home_team": "Everton",
+      "away_team": "Swansea City",
+      "home_goals": 1,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3753997,
+      "match_date": "2016-02-02",
+      "home_team": "West Ham United",
+      "away_team": "Aston Villa",
+      "home_goals": 2,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754089,
+      "match_date": "2016-02-02",
+      "home_team": "Crystal Palace",
+      "away_team": "AFC Bournemouth",
+      "home_goals": 1,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754094,
+      "match_date": "2016-02-02",
+      "home_team": "Manchester United",
+      "away_team": "Stoke City",
+      "home_goals": 3,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754095,
+      "match_date": "2016-02-02",
+      "home_team": "Sunderland",
+      "away_team": "Manchester City",
+      "home_goals": 0,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754201,
+      "match_date": "2016-02-02",
+      "home_team": "Arsenal",
+      "away_team": "Southampton",
+      "home_goals": 0,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754275,
+      "match_date": "2016-02-02",
+      "home_team": "Leicester City",
+      "away_team": "Liverpool",
+      "home_goals": 2,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754317,
+      "match_date": "2016-02-02",
+      "home_team": "Norwich City",
+      "away_team": "Tottenham Hotspur",
+      "home_goals": 0,
+      "away_goals": 3
+    },
+    {
+      "match_id": 3754340,
+      "match_date": "2016-02-02",
+      "home_team": "West Bromwich Albion",
+      "away_team": "Swansea City",
+      "home_goals": 1,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754103,
+      "match_date": "2016-02-03",
+      "home_team": "Watford",
+      "away_team": "Chelsea",
+      "home_goals": 0,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754252,
+      "match_date": "2016-02-03",
+      "home_team": "Everton",
+      "away_team": "Newcastle United",
+      "home_goals": 3,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754080,
+      "match_date": "2016-02-06",
+      "home_team": "Tottenham Hotspur",
+      "away_team": "Watford",
+      "home_goals": 1,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754120,
+      "match_date": "2016-02-06",
+      "home_team": "Southampton",
+      "away_team": "West Ham United",
+      "home_goals": 1,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754127,
+      "match_date": "2016-02-06",
+      "home_team": "Stoke City",
+      "away_team": "Everton",
+      "home_goals": 0,
+      "away_goals": 3
+    },
+    {
+      "match_id": 3754290,
+      "match_date": "2016-02-06",
+      "home_team": "Manchester City",
+      "away_team": "Leicester City",
+      "home_goals": 1,
+      "away_goals": 3
+    },
+    {
+      "match_id": 3754292,
+      "match_date": "2016-02-06",
+      "home_team": "Newcastle United",
+      "away_team": "West Bromwich Albion",
+      "home_goals": 1,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754303,
+      "match_date": "2016-02-06",
+      "home_team": "Swansea City",
+      "away_team": "Crystal Palace",
+      "home_goals": 1,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754306,
+      "match_date": "2016-02-06",
+      "home_team": "Aston Villa",
+      "away_team": "Norwich City",
+      "home_goals": 2,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754316,
+      "match_date": "2016-02-06",
+      "home_team": "Liverpool",
+      "away_team": "Sunderland",
+      "home_goals": 2,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754253,
+      "match_date": "2016-02-07",
+      "home_team": "AFC Bournemouth",
+      "away_team": "Arsenal",
+      "home_goals": 0,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754281,
+      "match_date": "2016-02-07",
+      "home_team": "Chelsea",
+      "away_team": "Manchester United",
+      "home_goals": 1,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754039,
+      "match_date": "2016-02-13",
+      "home_team": "Crystal Palace",
+      "away_team": "Watford",
+      "home_goals": 1,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754031,
+      "match_date": "2016-02-13",
+      "home_team": "Sunderland",
+      "away_team": "Manchester United",
+      "home_goals": 2,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754139,
+      "match_date": "2016-02-13",
+      "home_team": "Swansea City",
+      "away_team": "Southampton",
+      "home_goals": 0,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754244,
+      "match_date": "2016-02-13",
+      "home_team": "Norwich City",
+      "away_team": "West Ham United",
+      "home_goals": 2,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754264,
+      "match_date": "2016-02-13",
+      "home_team": "Chelsea",
+      "away_team": "Newcastle United",
+      "home_goals": 5,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754274,
+      "match_date": "2016-02-13",
+      "home_team": "AFC Bournemouth",
+      "away_team": "Stoke City",
+      "home_goals": 1,
+      "away_goals": 3
+    },
+    {
+      "match_id": 3754350,
+      "match_date": "2016-02-13",
+      "home_team": "Everton",
+      "away_team": "West Bromwich Albion",
+      "home_goals": 0,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754147,
+      "match_date": "2016-02-14",
+      "home_team": "Manchester City",
+      "away_team": "Tottenham Hotspur",
+      "home_goals": 1,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754214,
+      "match_date": "2016-02-14",
+      "home_team": "Aston Villa",
+      "away_team": "Liverpool",
+      "home_goals": 0,
+      "away_goals": 6
+    },
+    {
+      "match_id": 3754261,
+      "match_date": "2016-02-14",
+      "home_team": "Arsenal",
+      "away_team": "Leicester City",
+      "home_goals": 2,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754049,
+      "match_date": "2016-02-27",
+      "home_team": "Leicester City",
+      "away_team": "Norwich City",
+      "home_goals": 1,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754012,
+      "match_date": "2016-02-27",
+      "home_team": "Southampton",
+      "away_team": "Chelsea",
+      "home_goals": 1,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754121,
+      "match_date": "2016-02-27",
+      "home_team": "Watford",
+      "away_team": "AFC Bournemouth",
+      "home_goals": 0,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754236,
+      "match_date": "2016-02-27",
+      "home_team": "West Bromwich Albion",
+      "away_team": "Crystal Palace",
+      "home_goals": 3,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754321,
+      "match_date": "2016-02-27",
+      "home_team": "Stoke City",
+      "away_team": "Aston Villa",
+      "home_goals": 2,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754331,
+      "match_date": "2016-02-27",
+      "home_team": "West Ham United",
+      "away_team": "Sunderland",
+      "home_goals": 1,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754239,
+      "match_date": "2016-02-28",
+      "home_team": "Manchester United",
+      "away_team": "Arsenal",
+      "home_goals": 3,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754324,
+      "match_date": "2016-02-28",
+      "home_team": "Tottenham Hotspur",
+      "away_team": "Swansea City",
+      "home_goals": 2,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754050,
+      "match_date": "2016-03-01",
+      "home_team": "Sunderland",
+      "away_team": "Crystal Palace",
+      "home_goals": 2,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754231,
+      "match_date": "2016-03-01",
+      "home_team": "Leicester City",
+      "away_team": "West Bromwich Albion",
+      "home_goals": 2,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754280,
+      "match_date": "2016-03-01",
+      "home_team": "Norwich City",
+      "away_team": "Chelsea",
+      "home_goals": 1,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754327,
+      "match_date": "2016-03-01",
+      "home_team": "Aston Villa",
+      "away_team": "Everton",
+      "home_goals": 1,
+      "away_goals": 3
+    },
+    {
+      "match_id": 3754334,
+      "match_date": "2016-03-01",
+      "home_team": "AFC Bournemouth",
+      "away_team": "Southampton",
+      "home_goals": 2,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3753976,
+      "match_date": "2016-03-02",
+      "home_team": "Arsenal",
+      "away_team": "Swansea City",
+      "home_goals": 1,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3753991,
+      "match_date": "2016-03-02",
+      "home_team": "Liverpool",
+      "away_team": "Manchester City",
+      "home_goals": 3,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754005,
+      "match_date": "2016-03-02",
+      "home_team": "Stoke City",
+      "away_team": "Newcastle United",
+      "home_goals": 1,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754232,
+      "match_date": "2016-03-02",
+      "home_team": "Manchester United",
+      "away_team": "Watford",
+      "home_goals": 1,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754349,
+      "match_date": "2016-03-02",
+      "home_team": "West Ham United",
+      "away_team": "Tottenham Hotspur",
+      "home_goals": 1,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754061,
+      "match_date": "2016-03-05",
+      "home_team": "Chelsea",
+      "away_team": "Stoke City",
+      "home_goals": 1,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754151,
+      "match_date": "2016-03-05",
+      "home_team": "Swansea City",
+      "away_team": "Norwich City",
+      "home_goals": 1,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754164,
+      "match_date": "2016-03-05",
+      "home_team": "Southampton",
+      "away_team": "Sunderland",
+      "home_goals": 1,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754177,
+      "match_date": "2016-03-05",
+      "home_team": "Newcastle United",
+      "away_team": "AFC Bournemouth",
+      "home_goals": 1,
+      "away_goals": 3
+    },
+    {
+      "match_id": 3754249,
+      "match_date": "2016-03-05",
+      "home_team": "Manchester City",
+      "away_team": "Aston Villa",
+      "home_goals": 4,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754277,
+      "match_date": "2016-03-05",
+      "home_team": "Everton",
+      "away_team": "West Ham United",
+      "home_goals": 2,
+      "away_goals": 3
+    },
+    {
+      "match_id": 3754289,
+      "match_date": "2016-03-05",
+      "home_team": "Watford",
+      "away_team": "Leicester City",
+      "home_goals": 0,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754318,
+      "match_date": "2016-03-05",
+      "home_team": "Tottenham Hotspur",
+      "away_team": "Arsenal",
+      "home_goals": 2,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754081,
+      "match_date": "2016-03-06",
+      "home_team": "West Bromwich Albion",
+      "away_team": "Manchester United",
+      "home_goals": 1,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754220,
+      "match_date": "2016-03-06",
+      "home_team": "Crystal Palace",
+      "away_team": "Liverpool",
+      "home_goals": 1,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3753988,
+      "match_date": "2016-03-12",
+      "home_team": "AFC Bournemouth",
+      "away_team": "Swansea City",
+      "home_goals": 3,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754196,
+      "match_date": "2016-03-12",
+      "home_team": "Stoke City",
+      "away_team": "Southampton",
+      "home_goals": 1,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754313,
+      "match_date": "2016-03-12",
+      "home_team": "Norwich City",
+      "away_team": "Manchester City",
+      "home_goals": 0,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754053,
+      "match_date": "2016-03-13",
+      "home_team": "Aston Villa",
+      "away_team": "Tottenham Hotspur",
+      "home_goals": 0,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754002,
+      "match_date": "2016-03-14",
+      "home_team": "Leicester City",
+      "away_team": "Newcastle United",
+      "home_goals": 1,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754052,
+      "match_date": "2016-03-19",
+      "home_team": "West Bromwich Albion",
+      "away_team": "Norwich City",
+      "home_goals": 0,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3753973,
+      "match_date": "2016-03-19",
+      "home_team": "Chelsea",
+      "away_team": "West Ham United",
+      "home_goals": 2,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3753977,
+      "match_date": "2016-03-19",
+      "home_team": "Watford",
+      "away_team": "Stoke City",
+      "home_goals": 1,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3753980,
+      "match_date": "2016-03-19",
+      "home_team": "Everton",
+      "away_team": "Arsenal",
+      "home_goals": 0,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754181,
+      "match_date": "2016-03-19",
+      "home_team": "Crystal Palace",
+      "away_team": "Leicester City",
+      "home_goals": 0,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754224,
+      "match_date": "2016-03-19",
+      "home_team": "Swansea City",
+      "away_team": "Aston Villa",
+      "home_goals": 1,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754043,
+      "match_date": "2016-03-20",
+      "home_team": "Tottenham Hotspur",
+      "away_team": "AFC Bournemouth",
+      "home_goals": 3,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754064,
+      "match_date": "2016-03-20",
+      "home_team": "Southampton",
+      "away_team": "Liverpool",
+      "home_goals": 3,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754100,
+      "match_date": "2016-03-20",
+      "home_team": "Newcastle United",
+      "away_team": "Sunderland",
+      "home_goals": 1,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754124,
+      "match_date": "2016-03-20",
+      "home_team": "Manchester City",
+      "away_team": "Manchester United",
+      "home_goals": 0,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754175,
+      "match_date": "2016-04-02",
+      "home_team": "Sunderland",
+      "away_team": "West Bromwich Albion",
+      "home_goals": 0,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754075,
+      "match_date": "2016-04-02",
+      "home_team": "Aston Villa",
+      "away_team": "Chelsea",
+      "home_goals": 0,
+      "away_goals": 4
+    },
+    {
+      "match_id": 3754087,
+      "match_date": "2016-04-02",
+      "home_team": "Liverpool",
+      "away_team": "Tottenham Hotspur",
+      "home_goals": 1,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754118,
+      "match_date": "2016-04-02",
+      "home_team": "Arsenal",
+      "away_team": "Watford",
+      "home_goals": 4,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754144,
+      "match_date": "2016-04-02",
+      "home_team": "AFC Bournemouth",
+      "away_team": "Manchester City",
+      "home_goals": 0,
+      "away_goals": 4
+    },
+    {
+      "match_id": 3754176,
+      "match_date": "2016-04-02",
+      "home_team": "West Ham United",
+      "away_team": "Crystal Palace",
+      "home_goals": 2,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754243,
+      "match_date": "2016-04-02",
+      "home_team": "Norwich City",
+      "away_team": "Newcastle United",
+      "home_goals": 3,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754272,
+      "match_date": "2016-04-02",
+      "home_team": "Stoke City",
+      "away_team": "Swansea City",
+      "home_goals": 2,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3753982,
+      "match_date": "2016-04-03",
+      "home_team": "Leicester City",
+      "away_team": "Southampton",
+      "home_goals": 1,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754299,
+      "match_date": "2016-04-03",
+      "home_team": "Manchester United",
+      "away_team": "Everton",
+      "home_goals": 1,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754016,
+      "match_date": "2016-04-09",
+      "home_team": "Southampton",
+      "away_team": "Newcastle United",
+      "home_goals": 3,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754022,
+      "match_date": "2016-04-09",
+      "home_team": "Crystal Palace",
+      "away_team": "Norwich City",
+      "home_goals": 1,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754030,
+      "match_date": "2016-04-09",
+      "home_team": "Watford",
+      "away_team": "Everton",
+      "home_goals": 1,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754035,
+      "match_date": "2016-04-09",
+      "home_team": "Manchester City",
+      "away_team": "West Bromwich Albion",
+      "home_goals": 2,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754116,
+      "match_date": "2016-04-09",
+      "home_team": "Swansea City",
+      "away_team": "Chelsea",
+      "home_goals": 1,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754241,
+      "match_date": "2016-04-09",
+      "home_team": "West Ham United",
+      "away_team": "Arsenal",
+      "home_goals": 3,
+      "away_goals": 3
+    },
+    {
+      "match_id": 3754262,
+      "match_date": "2016-04-09",
+      "home_team": "Aston Villa",
+      "away_team": "AFC Bournemouth",
+      "home_goals": 1,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3753986,
+      "match_date": "2016-04-10",
+      "home_team": "Liverpool",
+      "away_team": "Stoke City",
+      "home_goals": 4,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754152,
+      "match_date": "2016-04-10",
+      "home_team": "Sunderland",
+      "away_team": "Leicester City",
+      "home_goals": 0,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754209,
+      "match_date": "2016-04-10",
+      "home_team": "Tottenham Hotspur",
+      "away_team": "Manchester United",
+      "home_goals": 3,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754048,
+      "match_date": "2016-04-13",
+      "home_team": "Crystal Palace",
+      "away_team": "Everton",
+      "home_goals": 0,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754024,
+      "match_date": "2016-04-16",
+      "home_team": "Newcastle United",
+      "away_team": "Swansea City",
+      "home_goals": 3,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754137,
+      "match_date": "2016-04-16",
+      "home_team": "Everton",
+      "away_team": "Southampton",
+      "home_goals": 1,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754155,
+      "match_date": "2016-04-16",
+      "home_team": "West Bromwich Albion",
+      "away_team": "Watford",
+      "home_goals": 0,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754172,
+      "match_date": "2016-04-16",
+      "home_team": "Norwich City",
+      "away_team": "Sunderland",
+      "home_goals": 0,
+      "away_goals": 3
+    },
+    {
+      "match_id": 3754295,
+      "match_date": "2016-04-16",
+      "home_team": "Manchester United",
+      "away_team": "Aston Villa",
+      "home_goals": 1,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754322,
+      "match_date": "2016-04-16",
+      "home_team": "Chelsea",
+      "away_team": "Manchester City",
+      "home_goals": 0,
+      "away_goals": 3
+    },
+    {
+      "match_id": 3754009,
+      "match_date": "2016-04-17",
+      "home_team": "Arsenal",
+      "away_team": "Crystal Palace",
+      "home_goals": 1,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754216,
+      "match_date": "2016-04-17",
+      "home_team": "AFC Bournemouth",
+      "away_team": "Liverpool",
+      "home_goals": 1,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754227,
+      "match_date": "2016-04-17",
+      "home_team": "Leicester City",
+      "away_team": "West Ham United",
+      "home_goals": 2,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754187,
+      "match_date": "2016-04-18",
+      "home_team": "Stoke City",
+      "away_team": "Tottenham Hotspur",
+      "home_goals": 0,
+      "away_goals": 4
+    },
+    {
+      "match_id": 3754206,
+      "match_date": "2016-04-19",
+      "home_team": "Newcastle United",
+      "away_team": "Manchester City",
+      "home_goals": 1,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754086,
+      "match_date": "2016-04-20",
+      "home_team": "West Ham United",
+      "away_team": "Watford",
+      "home_goals": 3,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754294,
+      "match_date": "2016-04-20",
+      "home_team": "Liverpool",
+      "away_team": "Everton",
+      "home_goals": 4,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754310,
+      "match_date": "2016-04-20",
+      "home_team": "Manchester United",
+      "away_team": "Crystal Palace",
+      "home_goals": 2,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754284,
+      "match_date": "2016-04-21",
+      "home_team": "Arsenal",
+      "away_team": "West Bromwich Albion",
+      "home_goals": 2,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754154,
+      "match_date": "2016-04-23",
+      "home_team": "Liverpool",
+      "away_team": "Newcastle United",
+      "home_goals": 2,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754242,
+      "match_date": "2016-04-23",
+      "home_team": "AFC Bournemouth",
+      "away_team": "Chelsea",
+      "home_goals": 1,
+      "away_goals": 4
+    },
+    {
+      "match_id": 3754282,
+      "match_date": "2016-04-23",
+      "home_team": "Aston Villa",
+      "away_team": "Southampton",
+      "home_goals": 2,
+      "away_goals": 4
+    },
+    {
+      "match_id": 3754307,
+      "match_date": "2016-04-23",
+      "home_team": "Manchester City",
+      "away_team": "Stoke City",
+      "home_goals": 4,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3753990,
+      "match_date": "2016-04-24",
+      "home_team": "Sunderland",
+      "away_team": "Arsenal",
+      "home_goals": 0,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754228,
+      "match_date": "2016-04-24",
+      "home_team": "Leicester City",
+      "away_team": "Swansea City",
+      "home_goals": 4,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754332,
+      "match_date": "2016-04-25",
+      "home_team": "Tottenham Hotspur",
+      "away_team": "West Bromwich Albion",
+      "home_goals": 1,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754037,
+      "match_date": "2016-04-30",
+      "home_team": "Everton",
+      "away_team": "AFC Bournemouth",
+      "home_goals": 2,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754063,
+      "match_date": "2016-04-30",
+      "home_team": "Watford",
+      "away_team": "Aston Villa",
+      "home_goals": 3,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754132,
+      "match_date": "2016-04-30",
+      "home_team": "Stoke City",
+      "away_team": "Sunderland",
+      "home_goals": 1,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754170,
+      "match_date": "2016-04-30",
+      "home_team": "Newcastle United",
+      "away_team": "Crystal Palace",
+      "home_goals": 1,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754184,
+      "match_date": "2016-04-30",
+      "home_team": "Arsenal",
+      "away_team": "Norwich City",
+      "home_goals": 1,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754192,
+      "match_date": "2016-04-30",
+      "home_team": "West Bromwich Albion",
+      "away_team": "West Ham United",
+      "home_goals": 0,
+      "away_goals": 3
+    },
+    {
+      "match_id": 3754018,
+      "match_date": "2016-05-01",
+      "home_team": "Swansea City",
+      "away_team": "Liverpool",
+      "home_goals": 3,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754165,
+      "match_date": "2016-05-01",
+      "home_team": "Manchester United",
+      "away_team": "Leicester City",
+      "home_goals": 1,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754320,
+      "match_date": "2016-05-01",
+      "home_team": "Southampton",
+      "away_team": "Manchester City",
+      "home_goals": 4,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754092,
+      "match_date": "2016-05-02",
+      "home_team": "Chelsea",
+      "away_team": "Tottenham Hotspur",
+      "home_goals": 2,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754026,
+      "match_date": "2016-05-07",
+      "home_team": "Crystal Palace",
+      "away_team": "Stoke City",
+      "home_goals": 2,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754033,
+      "match_date": "2016-05-07",
+      "home_team": "Leicester City",
+      "away_team": "Everton",
+      "home_goals": 3,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754070,
+      "match_date": "2016-05-07",
+      "home_team": "Aston Villa",
+      "away_team": "Newcastle United",
+      "home_goals": 0,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754108,
+      "match_date": "2016-05-07",
+      "home_team": "Sunderland",
+      "away_team": "Chelsea",
+      "home_goals": 3,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754158,
+      "match_date": "2016-05-07",
+      "home_team": "West Ham United",
+      "away_team": "Swansea City",
+      "home_goals": 1,
+      "away_goals": 4
+    },
+    {
+      "match_id": 3754210,
+      "match_date": "2016-05-07",
+      "home_team": "Norwich City",
+      "away_team": "Manchester United",
+      "home_goals": 0,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754225,
+      "match_date": "2016-05-07",
+      "home_team": "AFC Bournemouth",
+      "away_team": "West Bromwich Albion",
+      "home_goals": 1,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3753992,
+      "match_date": "2016-05-08",
+      "home_team": "Tottenham Hotspur",
+      "away_team": "Southampton",
+      "home_goals": 1,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754314,
+      "match_date": "2016-05-08",
+      "home_team": "Manchester City",
+      "away_team": "Arsenal",
+      "home_goals": 2,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754342,
+      "match_date": "2016-05-08",
+      "home_team": "Liverpool",
+      "away_team": "Watford",
+      "home_goals": 2,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754134,
+      "match_date": "2016-05-10",
+      "home_team": "West Ham United",
+      "away_team": "Manchester United",
+      "home_goals": 3,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754055,
+      "match_date": "2016-05-11",
+      "home_team": "Liverpool",
+      "away_team": "Chelsea",
+      "home_goals": 1,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3753989,
+      "match_date": "2016-05-11",
+      "home_team": "Sunderland",
+      "away_team": "Everton",
+      "home_goals": 3,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754207,
+      "match_date": "2016-05-11",
+      "home_team": "Norwich City",
+      "away_team": "Watford",
+      "home_goals": 4,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754041,
+      "match_date": "2016-05-15",
+      "home_team": "Arsenal",
+      "away_team": "Aston Villa",
+      "home_goals": 4,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754042,
+      "match_date": "2016-05-15",
+      "home_team": "West Bromwich Albion",
+      "away_team": "Liverpool",
+      "home_goals": 1,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3753994,
+      "match_date": "2016-05-15",
+      "home_team": "Southampton",
+      "away_team": "Crystal Palace",
+      "home_goals": 4,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754123,
+      "match_date": "2016-05-15",
+      "home_team": "Everton",
+      "away_team": "Norwich City",
+      "home_goals": 3,
+      "away_goals": 0
+    },
+    {
+      "match_id": 3754149,
+      "match_date": "2016-05-15",
+      "home_team": "Swansea City",
+      "away_team": "Manchester City",
+      "home_goals": 1,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754199,
+      "match_date": "2016-05-15",
+      "home_team": "Stoke City",
+      "away_team": "West Ham United",
+      "home_goals": 2,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754229,
+      "match_date": "2016-05-15",
+      "home_team": "Chelsea",
+      "away_team": "Leicester City",
+      "home_goals": 1,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754308,
+      "match_date": "2016-05-15",
+      "home_team": "Watford",
+      "away_team": "Sunderland",
+      "home_goals": 2,
+      "away_goals": 2
+    },
+    {
+      "match_id": 3754333,
+      "match_date": "2016-05-15",
+      "home_team": "Newcastle United",
+      "away_team": "Tottenham Hotspur",
+      "home_goals": 5,
+      "away_goals": 1
+    },
+    {
+      "match_id": 3754159,
+      "match_date": "2016-05-17",
+      "home_team": "Manchester United",
+      "away_team": "AFC Bournemouth",
+      "home_goals": 3,
+      "away_goals": 1
+    }
+  ]
+}

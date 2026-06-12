@@ -31,7 +31,7 @@ npm install
 
 ## Generating a Dataset
 
-Datasets are generated using `r/dataset_generator.qmd`
+Datasets are generated using `r/dataset_generator.R`
 
 **1. Find your competition and season IDs**
 
@@ -91,6 +91,19 @@ All endpoints are under `/team-stats`.
 | GET    | `/team-stats/pressure/:team`    | Actions performed under pressure by type                                                                              |
 
 > **Note:** The comparison endpoint (`/overview`) only includes teams with a fully generated dataset. Opponent teams that appear partially in the data are excluded automatically.
+
+---
+
+## Match Outcome Prediction
+
+A trained Poisson attack/defence model simulates match outcomes via Monte-Carlo. Pipeline: train once offline → artifact stored in `models/` → server loads it at startup → simulate on demand.
+
+| Method | Endpoint                                     | Description                                                                          |
+| ------ | -------------------------------------------- | ------------------------------------------------------------------------------------ |
+| GET    | `/match-outcome/model`                       | Trained ratings per team + back-test metrics                                          |
+| GET    | `/match-outcome/simulate?home=&away=&n=`     | Monte-Carlo simulate a fixture — win/draw/loss %, expected goals, score probabilities |
+
+**Training:** run `r/matchOutcomeTrainer.R` locally (RStudio/Positron), or `node r/buildMatchOutcomeModel.mjs` to build the artifact through WebR with no native R install. Either writes `models/matchOutcome.rds` + `models/matchOutcome.json`. If no artifact exists, the endpoints return a 503 with training instructions.
 
 ---
 

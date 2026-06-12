@@ -7,17 +7,35 @@ import {
   ensurePackages,
   loadRScripts,
   mountDataDir,
+  mountModelsDir,
 } from "./helpers/webrSetup.js";
 import { logStage } from "./helpers/monitor.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const PACKAGES  = ["dplyr"];
-const R_SCRIPTS = ["teamStats.R"];
+const R_SCRIPTS = ["teamStats.R", "matchOutcome.R"];
 const R_DIR     = "r";
 
 const dataDir   = path.join(__dirname, "data");
 const RDS_FILES = fs.readdirSync(dataDir).filter(f => /^\d+_\d+_.+\.rds$/.test(f));
+
+// Trained match-outcome model artifact (produced offline by r/matchOutcomeTrainer.R).
+const MODELS_DIR             = path.join(__dirname, "models");
+const MATCH_OUTCOME_RDS      = "matchOutcome.rds";
+const MATCH_OUTCOME_RDS_PATH = path.join(MODELS_DIR, MATCH_OUTCOME_RDS);
+
+function readMatchOutcomeMeta() {
+  const p = path.join(MODELS_DIR, "matchOutcome.json");
+  if (!fs.existsSync(p)) return null;
+  try { return JSON.parse(fs.readFileSync(p, "utf8")); } catch { return null; }
+}
+// Metadata sidecar for the trained model (null until a model is trained).
+export const matchOutcomeMeta = readMatchOutcomeMeta();
+
+let _matchOutcomeLoaded = false;
+// Whether a trained match-outcome model is currently loaded into MATCH_OUTCOME_MODEL.
+export function matchOutcomeModelLoaded() { return _matchOutcomeLoaded; }
 
 if (RDS_FILES.length === 0) console.warn("No datasets found in data/ — add an RDS via the generator");
 
@@ -33,6 +51,7 @@ export const datasetMap = Object.fromEntries(
 const RECYCLE_COOLDOWN_MS  = 5 * 60 * 1000;
 const RECYCLE_HEADROOM_MB    = parseInt(process.env.RECYCLE_HEADROOM_MB || '200');
 const RECYCLE_THRESHOLD_HARD = process.env.RECYCLE_THRESHOLD_MB ? parseInt(process.env.RECYCLE_THRESHOLD_MB) : null;
+const R_MAX_VSIZE_MB         = parseInt(process.env.R_MAX_VSIZE_MB || '512');
 
 // Mutable instance state
 let _webR              = null;
@@ -68,13 +87,39 @@ async function initWebR() {
   logStage("after pkgs");
   await loadRScripts(instance, R_SCRIPTS, path.join(__dirname, R_DIR));
   await mountDataDir(instance, __dirname);
+  await mountModelsDir(instance, __dirname);
   const teams = Object.keys(datasetMap).map(t => `"${t.replace(/"/g, '\\"')}"`).join(", ");
   await instance.evalRVoid(`dataset_teams <- c(${teams})`);
   await preloadDatasets(instance);
   logStage("after preload");
+  await loadMatchOutcomeModel(instance);
+  // Guardrail: cap R's vector heap so a pathological request errors (clean,
+  // catchable, instance survives) instead of permanently growing the WASM heap
+  // — which never shrinks — to a new high-water mark until the next recycle.
+  // The cap covers resident data (TEAM_DATA) + request transients, so it must
+  // sit comfortably above the heaviest legitimate request's peak. Set AFTER
+  // preload so startup loading is never throttled by it. The --max-vsize RArg
+  // is ignored by the WASM build; only this runtime setter is honoured
+  // (docs/memory-optimization-research.md §8.2).
+  await instance.evalRVoid(`invisible(mem.maxVSize(${R_MAX_VSIZE_MB}))`);
+  console.log(`[guardrail] R vector heap capped at ${R_MAX_VSIZE_MB}MB (R_MAX_VSIZE_MB to override)`);
   logStage("ready");
   console.log("webR ready");
   return instance;
+}
+
+// Load the trained match-outcome model into the R global MATCH_OUTCOME_MODEL, if
+// the artifact exists. Re-runs on every recycle (lives in initWebR). A missing
+// artifact is not an error — the endpoints return a clear 503 until one is trained.
+async function loadMatchOutcomeModel(webR) {
+  if (!fs.existsSync(MATCH_OUTCOME_RDS_PATH)) {
+    _matchOutcomeLoaded = false;
+    console.warn(`[match-outcome] no trained model at models/${MATCH_OUTCOME_RDS} — run r/matchOutcomeTrainer.R`);
+    return;
+  }
+  await webR.evalRVoid(`MATCH_OUTCOME_MODEL <- readRDS("/home/web_user/models/${MATCH_OUTCOME_RDS}")`);
+  _matchOutcomeLoaded = true;
+  console.log("[match-outcome] trained model loaded");
 }
 
 // Preload every dataset once into a resident R list `TEAM_DATA`, keyed by team
@@ -134,9 +179,15 @@ export async function gcWebR(webR) {
 // In-flight requests complete on the old instance before it is closed.
 export async function recycleWebR() {
   if (_recycling) return;
-  if (Date.now() - _lastRecycleAt < RECYCLE_COOLDOWN_MS) return;
-  const currentMB = process.memoryUsage().rss / 1e6;
-  if (currentMB < _recycleThresholdMB) return;
+  // _webR === null means a previous recycle closed the instance but reinit
+  // failed — always retry, skipping cooldown and threshold (the heap is gone,
+  // so RSS is low and would never re-trigger a threshold-based recycle).
+  const dead = _webR === null;
+  if (!dead) {
+    if (Date.now() - _lastRecycleAt < RECYCLE_COOLDOWN_MS) return;
+    const currentMB = process.memoryUsage().rss / 1e6;
+    if (currentMB < _recycleThresholdMB) return;
+  }
 
   _recycling     = true;
   _lastRecycleAt = Date.now();
@@ -144,19 +195,37 @@ export async function recycleWebR() {
   // Gate: new requests queue up while we recycle
   closeGate();
 
-  console.log(`[recycle] triggered — rss=${currentMB.toFixed(0)}MB threshold=${_recycleThresholdMB.toFixed(0)}MB — waiting for ${_activeRequests} active request(s) to drain`);
+  if (dead) {
+    console.log("[recycle] retrying init after previous failure");
+  } else {
+    console.log(`[recycle] triggered — rss=${(process.memoryUsage().rss / 1e6).toFixed(0)}MB threshold=${_recycleThresholdMB.toFixed(0)}MB — waiting for ${_activeRequests} active request(s) to drain`);
 
-  // Drain in-flight requests
-  while (_activeRequests > 0) {
-    await new Promise(r => setTimeout(r, 20));
+    // Drain in-flight requests
+    while (_activeRequests > 0) {
+      await new Promise(r => setTimeout(r, 20));
+    }
+
+    console.log("[recycle] draining complete — closing webR");
+    _webR.close();
+    _webR = null;
+    logStage("post-close");
   }
 
-  console.log("[recycle] draining complete — closing webR");
-  _webR.close();
-  logStage("post-close");
-
   const start = Date.now();
-  _webR  = await initWebR();
+  try {
+    _webR = await initWebR();
+  } catch (err) {
+    // Reinit failed with the old instance already closed — nothing can be
+    // served. Open the gate so queued/new requests fail fast (via the rejected
+    // _ready) instead of hanging forever, and clear _recycling so the next
+    // monitor tick retries via the `dead` path above.
+    console.error(`[recycle] reinit FAILED: ${err.message} — requests will error until a retry succeeds`);
+    _ready = Promise.reject(err);
+    _ready.catch(() => {}); // prevent unhandledRejection before the next acquire
+    _recycling = false;
+    openGate();
+    return;
+  }
   _ready = Promise.resolve();
 
   const newBaselineMB = process.memoryUsage().rss / 1e6;

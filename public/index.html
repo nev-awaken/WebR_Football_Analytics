@@ -395,6 +395,16 @@
       </button>
     </div>
 
+    <div class="sidebar-section">
+      <div class="sidebar-label">Match Outcome</div>
+      <button class="endpoint-btn" data-path="/match-outcome/model" data-method="GET" data-label="Trained Model" data-no-team="true">
+        <span class="method get">GET</span> /model
+      </button>
+      <button class="endpoint-btn" data-sim="true" data-path="/match-outcome/simulate" data-method="GET" data-label="Match Simulator" data-no-team="true">
+        <span class="method get">GET</span> /simulate
+      </button>
+    </div>
+
     <!-- <div class="sidebar-section">
       <div class="sidebar-label">Stats (POST)</div>
       <button class="endpoint-btn" data-path="/stats/summary" data-method="POST" data-label="Summary Stats" data-body='{"values":[23,45,67,12,89,34,56]}'>
@@ -470,12 +480,14 @@
       if (activeBtn) activeBtn.classList.remove('active');
       btn.classList.add('active');
       activeBtn = btn;
-      fetchEndpoint(btn);
+      if (btn.dataset.sim === 'true') openSimulator(btn);
+      else fetchEndpoint(btn);
     });
   });
 
   teamSelect.addEventListener('change', () => {
-    if (activeBtn) fetchEndpoint(activeBtn);
+    // The match simulator has its own home/away selects — ignore the global one.
+    if (activeBtn && activeBtn.dataset.sim !== 'true') fetchEndpoint(activeBtn);
   });
 
   async function fetchEndpoint(btn) {
@@ -527,6 +539,8 @@
       body = renderPassCards(json.data);
     } else if (rawPath === '/team-stats/shot-map/:team') {
       body = renderShotMap(json.data);
+    } else if (rawPath === '/match-outcome/model') {
+      body = renderMatchModel(json.data);
     } else if (rawPath === '/stats/t-test') {
       const pv = json.data?.p_value ?? json.data;
       body = `<div class="stat-cards">
@@ -880,6 +894,200 @@
         }
       }
     });
+  }
+
+  // ---- Match Outcome: trained model + Monte-Carlo simulator ----------------
+
+  // WebR toJs() returns R lists as { names, values }. Pull a named element.
+  function rget(listObj, key) {
+    if (!listObj || !listObj.names) return undefined;
+    const i = listObj.names.indexOf(key);
+    return i < 0 ? undefined : listObj.values[i];
+  }
+  // Read a length-1 R vector down to a plain scalar.
+  function rscalar(v) {
+    if (v === null || v === undefined) return v;
+    if (Array.isArray(v)) return v[0];
+    if (v.values !== undefined) return Array.isArray(v.values) ? v.values[0] : v.values;
+    return v;
+  }
+
+  // Render the trained + back-tested model: metrics cards + ratings table.
+  function renderMatchModel(data) {
+    if (!data) return '<p style="color:var(--muted)">No model data</p>';
+    const meta    = rget(data, 'meta');
+    const test    = rget(data, 'test');
+    const homeAdv = rscalar(rget(data, 'home_adv'));
+    const ratings = normaliseData(rget(data, 'ratings'));
+
+    const cards = [
+      ['Trained',        rscalar(rget(meta, 'trained_at')),                ''],
+      ['Matches',        rscalar(rget(meta, 'n_matches')),                 ''],
+      ['Outcome Acc.',   rscalar(rget(test, 'outcome_accuracy')) + '%',    'green'],
+      ['Goal MAE',       rscalar(rget(test, 'mean_abs_error')),            'yellow'],
+      ['Home Advantage', '+' + homeAdv,                                    'blue'],
+    ].map(([l, v, c]) =>
+      `<div class="stat-card"><div class="label">${l}</div><div class="value ${c}" style="font-size:18px">${v ?? '—'}</div></div>`
+    ).join('');
+
+    const maxRating = Math.max(...ratings.map(r => Math.abs(parseFloat(r.rating)) || 0), 0.01);
+    const rows = ratings.map(r => {
+      const rt  = parseFloat(r.rating) || 0;
+      const pct = Math.min(Math.abs(rt) / maxRating * 100, 100);
+      const col = rt >= 0 ? 'var(--green)' : 'var(--red)';
+      return `<tr>
+        <td>${r.team}</td>
+        <td class="num">${(+r.attack).toFixed(3)}</td>
+        <td class="num">${(+r.defence).toFixed(3)}</td>
+        <td class="num" style="color:${col};font-weight:700">${rt >= 0 ? '+' : ''}${rt.toFixed(3)}</td>
+        <td style="width:160px"><div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${col}"></div></div></td>
+      </tr>`;
+    }).join('');
+
+    return `
+      <div class="stat-cards">${cards}</div>
+      <p style="font-size:12px;color:var(--muted);margin:14px 0 10px">
+        Poisson attack/defence ratings · higher attack = scores more · lower defence = concedes less ·
+        net rating = attack − defence (ranked best first)
+      </p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Team</th><th>Attack</th><th>Defence</th><th>Net Rating</th><th></th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table></div>`;
+  }
+
+  // Open the interactive simulator: load the model's team list, render the form.
+  async function openSimulator() {
+    if (activeChart) { activeChart.destroy(); activeChart = null; }
+    main.innerHTML = `<div style="padding:8px 0;color:var(--muted);font-size:14px"><span class="spinner"></span>Loading trained model…</div>`;
+
+    let teams, meta, test;
+    try {
+      const res  = await fetch('/match-outcome/model');
+      const json = await res.json();
+      if (json.success === false) {
+        main.innerHTML = `<div class="result-header"><h2>Match Simulator</h2></div><div class="error-box">${json.message}</div>`;
+        return;
+      }
+      teams = normaliseData(rget(json.data, 'ratings')).map(r => r.team).sort();
+      meta  = rget(json.data, 'meta');
+      test  = rget(json.data, 'test');
+    } catch (err) {
+      main.innerHTML = `<div class="result-header"><h2>Match Simulator</h2></div><div class="error-box">Network error: ${err.message}</div>`;
+      return;
+    }
+
+    const opt = (sel) => teams.map(t => `<option value="${t}"${t === sel ? ' selected' : ''}>${t}</option>`).join('');
+    const trainedNote = `Trained on ${rscalar(rget(meta, 'n_matches'))} matches · back-test accuracy ${rscalar(rget(test, 'outcome_accuracy'))}%`;
+
+    main.innerHTML = `
+      <div class="result-header"><h2>Match Simulator</h2>
+        <span class="result-url">/match-outcome/simulate</span>
+      </div>
+      <div class="result-meta">${trainedNote} · 10,000 Monte-Carlo runs per simulation</div>
+
+      <div style="display:flex;gap:14px;align-items:flex-end;flex-wrap:wrap;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px 18px;margin-bottom:18px">
+        <div style="flex:1;min-width:160px">
+          <label style="display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px">Home</label>
+          <select id="mo-home" style="width:100%;padding:8px;background:var(--bg,#0d1117);color:var(--text);border:1px solid var(--border);border-radius:6px">${opt(teams[0])}</select>
+        </div>
+        <div style="color:var(--muted);font-weight:700;padding-bottom:8px">vs</div>
+        <div style="flex:1;min-width:160px">
+          <label style="display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px">Away</label>
+          <select id="mo-away" style="width:100%;padding:8px;background:var(--bg,#0d1117);color:var(--text);border:1px solid var(--border);border-radius:6px">${opt(teams[1])}</select>
+        </div>
+        <button id="mo-run" style="padding:9px 20px;background:var(--green);color:#06140a;border:none;border-radius:6px;font-weight:700;cursor:pointer">Simulate</button>
+      </div>
+
+      <div id="mo-result"><p style="color:var(--muted)">Pick two teams and hit Simulate.</p></div>`;
+
+    document.getElementById('mo-run').addEventListener('click', runSimulation);
+    runSimulation(); // simulate the default fixture immediately
+  }
+
+  async function runSimulation() {
+    const home = document.getElementById('mo-home').value;
+    const away = document.getElementById('mo-away').value;
+    const out  = document.getElementById('mo-result');
+    out.innerHTML = `<div style="padding:8px 0;color:var(--muted);font-size:14px"><span class="spinner"></span>Simulating ${home} vs ${away}…</div>`;
+    try {
+      const res  = await fetch(`/match-outcome/simulate?home=${encodeURIComponent(home)}&away=${encodeURIComponent(away)}`);
+      const json = await res.json();
+      if (json.success === false) { out.innerHTML = `<div class="error-box">${json.message}</div>`; return; }
+      out.innerHTML = renderSimResult(json.data);
+    } catch (err) {
+      out.innerHTML = `<div class="error-box">Network error: ${err.message}</div>`;
+    }
+  }
+
+  function renderSimResult(data) {
+    const home  = rscalar(rget(data, 'home'));
+    const away  = rscalar(rget(data, 'away'));
+    const hWin  = rscalar(rget(data, 'home_win'));
+    const draw  = rscalar(rget(data, 'draw'));
+    const aWin  = rscalar(rget(data, 'away_win'));
+    const ehg   = rscalar(rget(data, 'exp_home_goals'));
+    const eag   = rscalar(rget(data, 'exp_away_goals'));
+    const likely = rscalar(rget(data, 'likely_score'));
+    const tops  = normaliseData(rget(data, 'top_scores'));
+    const grid  = normaliseData(rget(data, 'score_grid'));
+
+    const probBar = (label, val, color) => `
+      <div style="margin-bottom:10px">
+        <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px">
+          <span>${label}</span><span style="font-weight:700;color:${color}">${val}%</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill" style="width:${val}%;background:${color}"></div></div>
+      </div>`;
+
+    const chips = tops.map(t =>
+      `<span class="shot-chip"><span class="player">${t.score}</span> <span class="xg-val">${t.pct}%</span></span>`
+    ).join('');
+
+    // 0-5 score grid heatmap (rows = home goals, cols = away goals)
+    const cap = 5;
+    const lut = {};
+    let gmax = 0;
+    grid.forEach(g => { const k = g.home_goals + '_' + g.away_goals; lut[k] = +g.pct; gmax = Math.max(gmax, +g.pct); });
+    const cell = (i, j) => {
+      const v = lut[i + '_' + j] || 0;
+      const a = gmax ? (v / gmax) : 0;
+      const isLikely = (i + '-' + j) === likely;
+      return `<td style="text-align:center;padding:6px 4px;background:rgba(63,185,80,${(a * 0.85).toFixed(3)});${isLikely ? 'outline:2px solid var(--yellow);outline-offset:-2px' : ''}" title="${i}-${j}: ${v}%">${v >= 1 ? v.toFixed(0) : ''}</td>`;
+    };
+    let gridHtml = `<table style="border-collapse:collapse;font-size:11px"><thead><tr><th></th>` +
+      Array.from({ length: cap + 1 }, (_, j) => `<th style="padding:3px 5px;color:var(--muted)">${j}${j === cap ? '+' : ''}</th>`).join('') + `</tr></thead><tbody>`;
+    for (let i = 0; i <= cap; i++) {
+      gridHtml += `<tr><th style="padding:3px 6px;color:var(--muted);text-align:right">${i}${i === cap ? '+' : ''}</th>` +
+        Array.from({ length: cap + 1 }, (_, j) => cell(i, j)).join('') + `</tr>`;
+    }
+    gridHtml += `</tbody></table>`;
+
+    return `
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start">
+
+        <div>
+          <h3 style="margin:0 0 12px;font-size:14px">Outcome Probability</h3>
+          ${probBar(home + ' win', hWin, 'var(--green)')}
+          ${probBar('Draw', draw, 'var(--muted)')}
+          ${probBar(away + ' win', aWin, 'var(--blue)')}
+
+          <div class="stat-cards" style="margin-top:16px">
+            <div class="stat-card"><div class="label">Expected Goals</div><div class="value" style="font-size:20px">${ehg} – ${eag}</div></div>
+            <div class="stat-card"><div class="label">Likely Score</div><div class="value green" style="font-size:20px">${likely}</div></div>
+          </div>
+
+          <h3 style="margin:18px 0 8px;font-size:14px">Most Likely Scorelines</h3>
+          <div class="shot-chips" style="display:flex;flex-wrap:wrap;gap:8px">${chips}</div>
+        </div>
+
+        <div>
+          <h3 style="margin:0 0 12px;font-size:14px">Score Probability Grid</h3>
+          <div style="font-size:11px;color:var(--muted);margin-bottom:6px">${home} goals (rows) × ${away} goals (cols) · % · yellow = most likely</div>
+          ${gridHtml}
+        </div>
+
+      </div>`;
   }
 
   function flattenRow(arr) {
